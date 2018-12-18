@@ -18,7 +18,7 @@ def find_date():
 
     filename='clinvar_'+fileupdate+'.vcf.gz'
     print(filename)
-    download_file(filename)
+    return download_file(filename)
 
 
 # download vcf file & unzip
@@ -34,19 +34,6 @@ def download_file(filename):
 
     print('download done')
     return outFileName
-
-
-# extract data in vcf
-# use the date and rename file
-def vcf_rename(path):
-    with open(path, 'r') as f:
-        tmp = f.read()[:60]
-        match = re.search('\d{4}-\d{2}-\d{2}', tmp)
-        date = datetime.datetime.strptime(match.group(), '%Y-%m-%d').date()
-        newname = 'clinvar_'+''.join(str(date).split('-'))+'.vcf'
-        os.rename(path, newname)
-        print('newname ->', newname)
-        return newname
 
 
 # this function is for vcf to dataframe
@@ -70,8 +57,7 @@ def extract_rs_clnsig(row):
     return pd.Series([rs, sig])
 
 
-outFileName = download_file()
-saved_file = vcf_rename(outFileName)
+saved_file=find_date()
 # saved_file = 'clinvar_20181217.vcf'
 print('reading vcf ...')
 df = read_vcf(saved_file)
@@ -84,6 +70,6 @@ print('drop column...')
 df = df.drop('INFO', axis=1)
 
 # save it as csv file
-df.to_csv(saved_file+'.csv', index=False, sep='\t')
+df.to_csv(saved_file[:-3]+'.csv', index=False, sep='\t')
 
 print("done ! check the file")
