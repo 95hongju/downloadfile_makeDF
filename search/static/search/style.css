@@ -1,0 +1,47 @@
+.addd {
+  border:1;
+  text-align: center;
+  height: 20px;
+}
+
+.btn{
+  background: lightgray;
+  padding: 4px 0;
+  left: 50%;
+  top: 50%;
+  border-radius: 3px;
+}
+.img{
+  background: url("logo.png");
+}
+
+input {
+  text-align: center;
+}
+.result{
+  font-style: italic;
+  font-size: 15px;
+  color:gray;
+}
+.smallsize{
+  width:70px;
+}
+.bigsize{
+  width:140px;
+}
+input[type=text] {
+  border: 2px solid orange;
+  border-radius: 4px;
+  height:30px;
+}
+
+input[type=submit] {
+  border: 2px solid orange;
+  height: 30px;
+  border-radius: 4px;
+}
+input[type=button] {
+  border: 2px solid orange;
+  border-radius: 4px;
+  height:30px;
+}

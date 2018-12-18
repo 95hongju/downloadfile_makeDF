@@ -1,0 +1,74 @@
+<head>
+  <title>
+  </title>
+</head>
+
+<body>
+  <table border=1 align=center>
+    <tr>
+      <td colspan=8 class='img' width=400 height=100>
+
+      </td>
+    </tr>
+    <tr align='right'>
+      <td colspan=8 style="font-size:80%">
+        {% if latest_file %}
+          latest update : {{latest_file.down_date }}
+        {% else %}
+          nothing to show
+        {% endif %}
+         <input type='submit' title='update' value="🔄" />
+      </td>
+    </tr>
+    <tr>
+      <td colspan=8>
+      <input type=text placeholder="search RSID" name='searchRS' style="width:90%;"/>
+   <input type='submit' title='searchRS' value="🔍" />
+      </td>
+    </tr>
+    <tr>
+      <td colspan=8>
+        <input type="file" name="file" id="id_file" style="width:80%"/>
+        <input type="submit" value="UPLOAD" class='btn' />
+      </td>
+    </tr>
+    <tr height=30>
+      <td colspan=8>
+      </td>
+    </tr>
+
+    <tr>
+      <td>CHROM </td>
+      <td>ID </td>
+      <td>REF </td>
+      <td>ALT </td>
+      <td>QUAL </td>
+      <td>FILTER </td>
+      <td>RS </td>
+      <td>CLNSIG </td>
+    </tr>
+    {% if csv_list %}
+    {% for e in cvs_list %}
+    <tr>
+      <td> {{ e.CHROM }} </td>
+      <td> {{ e.ROS }} </td>
+      <td> {{ e.ID }} </td>
+      <td> {{ e.REF }} </td>
+      <td> {{ e.ALT }} </td>
+      <td> {{ e.QUAL }} </td>
+      <td> {{ e.FILTER }} </td>
+      <td> {{ e.RS }} </td>
+      <td> {{ e.CLNSIG }} </td>
+    </tr>
+    {% endfor %}
+    {% else %}
+     <tr><td colspan=8> NOTHING TO SHOW.</td> </tr>
+    {% endif %}
+
+
+
+  </table>
+
+</body>
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'search/style.css' %}" />
