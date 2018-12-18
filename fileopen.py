@@ -1,25 +1,20 @@
 import gzip
 import urllib.request
-import os
 import io
 import pandas as pd
 import re
-import datetime
 
 
 # before download the file, check the date(latest file upload date)
-
-#problem ... what if filename is 20181217 but updated date is 20181205,,?
+# problem ... what if filename is 20181217 but updated date is 20181205,,?
 def find_date():
     print('check the time ...')
     url = "ftp://ftp.ncbi.nlm.nih.gov/pub/clinvar/vcf_GRCh37/"
     response = urllib.request.urlopen(url)
-    filelist=response.read()
-    match = re.search('\d{4}\d{2}\d{2}', str(filelist))
-    date = datetime.datetime.strptime(match.group(), '%Y%m%d').date()
-    file_date=''.join(str(date).split('-'))
+    filelist = response.read()
+    match = re.search(r'clinvar_\d{4}\d{2}\d{2}', str(filelist))
 
-    filename='clinvar_'+file_date+'.vcf.gz'
+    filename = match.group()+'.vcf.gz'
     print(filename)
     return download_file(filename)
 
@@ -60,7 +55,7 @@ def extract_rs_clnsig(row):
     return pd.Series([rs, sig])
 
 
-saved_file=find_date()
+saved_file = find_date()
 # saved_file = 'clinvar_20181217.vcf'
 print('reading vcf ...')
 df = read_vcf(saved_file)
