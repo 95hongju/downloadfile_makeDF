@@ -7,15 +7,27 @@ import re
 import datetime
 
 
-# download vcf file & unzip
+# before download the file, check the date(latest file upload date)
+def find_date():
+    url = "ftp://ftp.ncbi.nlm.nih.gov/pub/clinvar/vcf_GRCh37/"
+    response = urllib.request.urlopen(url)
+    filelist=response.read()
+    match = re.search('\d{4}\d{2}\d{2}', str(filelist))
+    date = datetime.datetime.strptime(match.group(), '%Y%m%d').date()
+    file_date=''.join(str(date).split('-'))
 
-def download_file():
+    filename='clinvar_'+fileupdate+'.vcf.gz'
+    print(filename)
+    download_file(filename)
+
+
+# download vcf file & unzip
+def download_file(filename):
     print('download file ----')
 # set url and open file
-    url = "ftp://ftp.ncbi.nlm.nih.gov/pub/clinvar/vcf_GRCh37/clinvar.vcf.gz"
-    filename = "clinvar.vcf.gz"
-    outFileName = filename[:-3]
+    url = "ftp://ftp.ncbi.nlm.nih.gov/pub/clinvar/vcf_GRCh37/"+filename
     response = urllib.request.urlopen(url)
+    outFileName = filename[:-3]
 
     with open(outFileName, 'wb') as outfile:
         outfile.write(gzip.decompress(response.read()))
