@@ -1,0 +1,84 @@
+<br>
+<table  width=800>
+  <tr class="row">
+    <td> RS </td>
+    <td> CHROM </td>
+    <td> POS </td>
+    <td> ID </td>
+    <td> REF </td>
+    <td> ALT </td>
+    <td> QUAL </td>
+    <td> FILTER </td>
+    <td> CLNSIG </td>
+  </tr>
+
+  {% if result %}
+
+  {% for k,v in result.items %}
+  <tr>
+    {% for kk, vv in v.items %}
+
+    <td> {{ vv }} </td>
+    {%endfor %}
+
+
+  </tr>
+  {% endfor %}
+
+
+</table>
+{% endif %}
+<br>
+<input type=button onclick="exportTableToCSV('result.csv')" value='CSV DOWNLOAD'></button>
+
+</form>
+
+
+
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'search/resultstyle.css' %}" />
+
+<script>
+function downloadCSV(csv, filename) {
+  var csvFile;
+  var downloadLink;
+
+  // CSV file
+  csvFile = new Blob([csv], {type: "text/csv"});
+
+  // Download link
+  downloadLink = document.createElement("a");
+
+  // File name
+  downloadLink.download = filename;
+
+  // Create a link to the file
+  downloadLink.href = window.URL.createObjectURL(csvFile);
+
+  // Hide download link
+  downloadLink.style.display = "none";
+
+  // Add the link to DOM
+  document.body.appendChild(downloadLink);
+
+  // Click download link
+  downloadLink.click();
+}
+
+function exportTableToCSV(filename) {
+  var csv = [];
+  var rows = document.querySelectorAll("table tr");
+
+  for (var i = 0; i < rows.length; i++) {
+    var row = [], cols = rows[i].querySelectorAll("td, th");
+
+    for (var j = 0; j < cols.length; j++)
+    row.push(cols[j].innerText);
+
+    csv.push(row.join("\t"));
+  }
+
+  // Download CSV file
+  downloadCSV(csv.join("\n"), filename);
+}
+</script>
