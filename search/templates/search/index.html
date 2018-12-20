@@ -6,69 +6,61 @@
 <body>
   <table border=1 align=center>
     <tr>
-      <td colspan=8 class='img' width=400 height=100>
+      <td colspan=8 class='img' width=500 height=100>
 
       </td>
     </tr>
-    <tr align='right'>
-      <td colspan=8 style="font-size:80%">
-        {% if latest_file %}
-          latest update : {{latest_file.down_date }}
-        {% else %}
+    <form method="POST" action="{% url 'search:update' %}">
+      {% csrf_token %}
+      <tr align='right'>
+        <td colspan=8 style="font-size:80%">
+          {% if currUsingFile %}
+          latest update : {{currUsingFile.down_date }}
+          {% else %}
           nothing to show
-        {% endif %}
-         <input type='submit' title='update' value="🔄" />
+          {% endif %}
+          <input type='submit' value="🔄" title='file update'/>
+        </td>
+
+      </tr>
+    </form>
+    <form method="POST" action="{% url 'search:searchRS' %}">
+      {% csrf_token %}
+      <tr align=center>
+        <td colspan=8>
+          <input type=text placeholder="search RSID" name='srchkeyword' style="width:92%;" />
+          <input type='submit' value="🔍" title='search' />
+        </td>
+      </tr>
+    </form>
+      <form method="POST" enctype="multipart/form-data" action="{% url 'search:upload' %}">
+      {% csrf_token %}
+      <tr align=center>
+        <td colspan=8>
+          <a href="{% url 'search:file_download' %}"><input type='button' value='example' title='sample file download'></a>
+          <input type="file" name="file" id="id_file" style="width:70%" />
+          <input type="submit" value="UPLOAD" title='upload and search' class='btn' />
+        </td>
+      </tr>
+    </form>
+    <tr>
+      <td colspan=8 align=center>
+        <br>
+
+          {% if messages %}
+
+             {% for message in messages %}
+             <h4 style='color:#ff5733'>{{ message }}
+             {% endfor %}
+         {% else %}
+           <h4 style='color:darkorange'> only [ .txt ] files avaliable !
+          {% endif %}
+        </h4>
       </td>
     </tr>
-    <tr>
-      <td colspan=8>
-      <input type=text placeholder="search RSID" name='searchRS' style="width:90%;"/>
-   <input type='submit' title='searchRS' value="🔍" />
-      </td>
-    </tr>
-    <tr>
-      <td colspan=8>
-        <input type="file" name="file" id="id_file" style="width:80%"/>
-        <input type="submit" value="UPLOAD" class='btn' />
-      </td>
-    </tr>
-    <tr height=30>
-      <td colspan=8>
-      </td>
-    </tr>
-
-    <tr>
-      <td>CHROM </td>
-      <td>ID </td>
-      <td>REF </td>
-      <td>ALT </td>
-      <td>QUAL </td>
-      <td>FILTER </td>
-      <td>RS </td>
-      <td>CLNSIG </td>
-    </tr>
-    {% if csv_list %}
-    {% for e in cvs_list %}
-    <tr>
-      <td> {{ e.CHROM }} </td>
-      <td> {{ e.ROS }} </td>
-      <td> {{ e.ID }} </td>
-      <td> {{ e.REF }} </td>
-      <td> {{ e.ALT }} </td>
-      <td> {{ e.QUAL }} </td>
-      <td> {{ e.FILTER }} </td>
-      <td> {{ e.RS }} </td>
-      <td> {{ e.CLNSIG }} </td>
-    </tr>
-    {% endfor %}
-    {% else %}
-     <tr><td colspan=8> NOTHING TO SHOW.</td> </tr>
-    {% endif %}
-
-
-
   </table>
 
 </body>
+
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'search/style.css' %}" />
