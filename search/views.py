@@ -3,13 +3,14 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.contrib import messages
 from .models import downloadFileList
+from collections import OrderedDict
 from io import StringIO
 import pandas as pd
 import os
 
 import search.fileDownOpen as fd
 
-columns = ['CHROM', 'POS', 'ID', 'REF', 'ALT', 'QUAL', 'FILTER', 'RS', 'CLNSIG']
+columns = ['CHR', 'POS', 'REF', 'ALT', 'QUAL', 'FILTER', 'rsID', 'clinvar Annotation']
 readfile = pd.DataFrame(columns=columns)
 print(readfile.empty)
 
@@ -50,7 +51,7 @@ def read_file_from_csv():
     usingfile = downloadFileList.objects.latest('down_date')
     print('read dataframe....')
     path = os.path.join(os.path.dirname(__file__))+'/data/'+usingfile.file_name+'.csv'
-    dtypes = {'CHROM': str, 'POS': str, 'ID': str, 'REF': str, 'ALT': str, 'QUAL': str, 'FILTER': str, 'RS': str, 'CLNSIG': str}
+    dtypes = {'CHR': str, 'POS': str, 'ID': str, 'REF': str, 'ALT': str, 'QUAL': str, 'FILTER': str, 'rsID': str, 'clinvar Annotation': str}
     readfile = pd.read_csv(path, delimiter='\t', dtype=dtypes)
 
 
@@ -76,14 +77,24 @@ def searchRS(request):
         read_file_from_csv()
 
     keyword = request.POST['srchkeyword']
-    result = readfile.loc[readfile['RS'] == keyword]
-    if result.empty:
-        messages.info(request, '😔 nothing to show 😔')
-        return HttpResponseRedirect(reverse('search:main'))
+    if 'RS' in keyword or 'rs' in keyword:
+        if 'RS' in keyword:
+            keyword = 'rs'+keyword.split('RS')[1]
+
+        result = readfile.loc[readfile['RS'] == keyword]
+        if result.empty:
+            messages.info(request, '😔 nothing to show 😔')
+            return HttpResponseRedirect(reverse('search:main'))
+        else:
+            columnlist = ['rsID', 'CHR', 'POS', 'REF', 'ALT', 'QUAL', 'FILTER', 'clinvar Annotation']
+            result = result[columnlist]
+            result = result.fillna('N/A')
+            dic = result.to_dict('records', into = OrderedDict)
+            context = {'result': dic}
+            return render(request, 'search/result.html', context)
     else:
-        dic = result.to_dict('index')
-        context = {'result': dic}
-        return render(request, 'search/result.html', context)
+        messages.info(request, '😔 inter "rsID" (ex-rs1921) 😔')
+        return HttpResponseRedirect(reverse('search:main'))
 
 
 def upload(request):
@@ -118,7 +129,10 @@ def upload(request):
         return HttpResponseRedirect(reverse('search:main'))
 # show result
     else:
-        dic = result.to_dict('index')
+        columnlist = ['rsID', 'CHR', 'POS', 'REF', 'ALT', 'QUAL', 'FILTER', 'clinvar Annotation']
+        result = result[columnlist]
+        result = result.fillna('N/A')
+        dic = result.to_dict('records', into = OrderedDict)
         context = {'result': dic}
         return render(request, 'search/result.html', context)
 

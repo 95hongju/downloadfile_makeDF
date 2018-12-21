@@ -1,33 +1,28 @@
 <br>
 <table  width=800>
   <tr class="row">
-    <td> RS </td>
-    <td> CHROM </td>
+    <td> rsID </td>
+    <td> CHR </td>
     <td> POS </td>
     <td> ID </td>
     <td> REF </td>
     <td> ALT </td>
     <td> QUAL </td>
     <td> FILTER </td>
-    <td> CLNSIG </td>
+    <td> clinvar Annotation </td>
   </tr>
 
-  {% if result %}
-
-  {% for k,v in result.items %}
+{% for e in result %}
   <tr>
-    {% for kk, vv in v.items %}
-
-    <td> {{ vv }} </td>
-    {%endfor %}
-
-
+    {% for k,v in e.items %}
+    <td>
+      {{ v }}
+    </td>
+    {% endfor %}
   </tr>
   {% endfor %}
 
-
 </table>
-{% endif %}
 <br>
 <input type=button onclick="exportTableToCSV('result.csv')" value='CSV DOWNLOAD'></button>
 
