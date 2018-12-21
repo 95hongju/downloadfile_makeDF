@@ -49,7 +49,7 @@ def read_vcf(path):
     with open(path, 'r') as f:
         lines = [l for l in f if not l.startswith('##')]
     return pd.read_table(io.StringIO(''.join(lines)),
-        dtype={'#CHROM': str, 'POS': int, 'ID': str, 'REF': str, 'ALT': str,
+        dtype={'#CHROM': str, 'POS': str, 'ID': str, 'REF': str, 'ALT': str,
         'QUAL': str, 'FILTER': str, 'INFO': str}).rename(columns={'#CHROM': 'CHROM'})
 
 
@@ -61,7 +61,7 @@ def extract_rs_clnsig(row):
         if 'CLNSIG' in i:
             sig = i.split('=')[1]
         if 'RS' in i:
-            rs = i.split('=')[1]
+            rs = 'rs' + i.split('=')[1]
     return pd.Series([rs, sig])
 
 
@@ -72,11 +72,11 @@ def down_process(filename):
     df = read_vcf(saved_file)
     print('applying function ...')
     # create new columns
-    df[['RS', 'CLNSIG']] = df['INFO'].apply(extract_rs_clnsig)
+    df[['rsID', 'clinvar Annotation']] = df['INFO'].apply(extract_rs_clnsig)
     print('drop column ...')
 
     # drop ['info'] column
-    df = df.drop('INFO', axis=1)
+    df = df.drop(['INFO','ID'], axis=1)
 
     # save it as csv file
     df.to_csv(saved_file[:-4]+'.csv', index=False, sep='\t')
