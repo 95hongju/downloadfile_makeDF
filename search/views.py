@@ -81,6 +81,9 @@ def searchRS(request):
         messages.info(request, '😔 nothing to show 😔')
         return HttpResponseRedirect(reverse('search:main'))
     else:
+        print(result)
+        print(readfile.dtypes)
+        result.columns = ['RS','CHROM', 'POS', 'ID', 'REF', 'ALT', 'QUAL', 'FILTER', 'CLNSIG']
         dic = result.to_dict('index')
         context = {'result': dic}
         return render(request, 'search/result.html', context)
@@ -108,6 +111,7 @@ def upload(request):
 
 # i want to keep the rsIDs what i insert
     result = pd.merge(txtfile, readfile, how='left', on=['RS'])
+    result.columns = ['RS','CHROM', 'POS', 'ID', 'REF', 'ALT', 'QUAL', 'FILTER', 'CLNSIG']
 # no i want to see only avaliable values(without null values)
     # result = pd.merge(txtfile, readfile, how='left', on=['RS'])
 

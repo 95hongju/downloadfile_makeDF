@@ -1,0 +1,43 @@
+
+table{
+  font-size: 12pt;
+  border: 3px lightgray solid;
+  border-radius: 15px;
+  padding-right: 10px;
+  padding-left: 10px;
+}
+table tr.row td{
+   border: 2px solid orange;
+   border-radius: 10px;
+}
+
+tr{
+  height: 30px;
+}
+
+
+
+td {
+  padding-left:0px;
+  padding-right: 0px;
+  padding-bottom: 5px;
+  text-align: center;
+
+}
+
+.btn{
+  background: lightgray;
+  padding: 4px 0;
+  left: 50%;
+  top: 50%;
+  border-radius: 3px;
+}
+
+
+input[type=button] {
+  text-align: center;
+  border: 2px solid orange;
+  border-radius: 4px;
+  height:30px;
+  width:20%;
+}
