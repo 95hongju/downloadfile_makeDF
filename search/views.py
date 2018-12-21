@@ -31,14 +31,9 @@ def main(request):
         fd.down_process(filename)
         newone=downloadFileList(file_name=fileOnURL)
         newone.save()
-        usingfile = downloadFileList.objects.latest('down_date')
-    else:
-        usingfile = downloadFileList.objects.latest('down_date')
-        qr = downloadFileList.objects.filter(file_name=fileOnURL)
-        if len(qr) == 0:
-            messages.info(request, '❗❗ need update ❗❗ ( it will take 2-3 mins)')
-        if readfile.empty:
-            read_file_from_csv()
+    usingfile = downloadFileList.objects.latest('down_date')
+    if readfile.empty:
+        read_file_from_csv()
 
 
     context = {'currUsingFile': usingfile}
