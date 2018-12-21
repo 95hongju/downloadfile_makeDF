@@ -50,7 +50,7 @@ def read_vcf(path):
         lines = [l for l in f if not l.startswith('##')]
     return pd.read_table(io.StringIO(''.join(lines)),
         dtype={'#CHROM': str, 'POS': str, 'ID': str, 'REF': str, 'ALT': str,
-        'QUAL': str, 'FILTER': str, 'INFO': str}).rename(columns={'#CHROM': 'CHROM'})
+        'QUAL': str, 'FILTER': str, 'INFO': str}).rename(columns={'#CHROM': 'CHR'})
 
 
 # extract rsID and CLNSIG from the ['INFO']
