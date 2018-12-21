@@ -50,20 +50,6 @@ def read_file_from_csv():
     readfile = pd.read_csv(path, delimiter='\t', dtype=dtypes)
 
 
-def update(request):
-
-    fileOnURL=fd.find_date()
-    currfile = downloadFileList.objects.latest('down_date')
-    if currfile.file_name==fileOnURL:
-        messages.info(request, '😎 already updated 😎')
-        return HttpResponseRedirect(reverse('search:main'))
-    else:
-        filename = fileOnURL+'.vcf.gz'
-        fd.down_process(filename)
-        newone=downloadFileList(file_name=fileOnURL)
-        newone.save()
-        messages.info(request, '😁 update done 😁')
-        return HttpResponseRedirect(reverse('search:main'))
 
 
 def searchRS(request):
