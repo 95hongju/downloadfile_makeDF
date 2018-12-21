@@ -35,7 +35,7 @@ def main(request):
         usingfile = downloadFileList.objects.latest('down_date')
         qr = downloadFileList.objects.filter(file_name=fileOnURL)
         if len(qr) == 0:
-            messages.info(request, '😔 need update 😔 ( it will take 2-3 mins)')
+            messages.info(request, '❗❗ need update ❗❗ ( it will take 2-3 mins)')
         if readfile.empty:
             read_file_from_csv()
 
@@ -59,14 +59,14 @@ def update(request):
     fileOnURL=fd.find_date()
     currfile = downloadFileList.objects.latest('down_date')
     if currfile.file_name==fileOnURL:
-        messages.info(request, 'already updated !')
+        messages.info(request, '😎 already updated 😎')
         return HttpResponseRedirect(reverse('search:main'))
     else:
         filename = fileOnURL+'.vcf.gz'
         fd.down_process(filename)
         newone=downloadFileList(file_name=fileOnURL)
         newone.save()
-        messages.info(request, 'update done !')
+        messages.info(request, '😁 update done 😁')
         return HttpResponseRedirect(reverse('search:main'))
 
 
@@ -81,8 +81,6 @@ def searchRS(request):
         messages.info(request, '😔 nothing to show 😔')
         return HttpResponseRedirect(reverse('search:main'))
     else:
-        print(result)
-        print(readfile.dtypes)
         result.columns = ['RS','CHROM', 'POS', 'ID', 'REF', 'ALT', 'QUAL', 'FILTER', 'CLNSIG']
         dic = result.to_dict('index')
         context = {'result': dic}
