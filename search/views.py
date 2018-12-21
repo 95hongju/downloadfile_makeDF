@@ -80,8 +80,7 @@ def searchRS(request):
     if 'RS' in keyword or 'rs' in keyword:
         if 'RS' in keyword:
             keyword = 'rs'+keyword.split('RS')[1]
-
-        result = readfile.loc[readfile['RS'] == keyword]
+        result = readfile.loc[readfile['rsID'] == keyword]
         if result.empty:
             messages.info(request, '😔 nothing to show 😔')
             return HttpResponseRedirect(reverse('search:main'))
@@ -93,6 +92,8 @@ def searchRS(request):
             context = {'result': dic}
             return render(request, 'search/result.html', context)
     else:
+        messages.info(request, '😔 insert "rsID" (ex-rs1921) 😔')
+        return HttpResponseRedirect(reverse('search:main'))
 
 
 
@@ -111,16 +112,15 @@ def upload(request):
     f = uploadfile.read().decode('utf8')
     data = StringIO(f)
     txtfile = pd.read_csv(data, header=None, dtype=str)
-    txtfile.columns = ['RS']
+    txtfile.columns = ['rsID']
 
     if readfile.empty:
         read_file_from_csv()
 
 # i want to keep the rsIDs what i insert
-    result = pd.merge(txtfile, readfile, how='left', on=['RS'])
-    result.columns = ['RS','CHROM', 'POS', 'ID', 'REF', 'ALT', 'QUAL', 'FILTER', 'CLNSIG']
+    result = pd.merge(txtfile, readfile, how='left', on=['rsID'])
 # no i want to see only avaliable values(without null values)
-    # result = pd.merge(txtfile, readfile, how='left', on=['RS'])
+    # result = pd.merge(txtfile, readfile, how='inner', on=['rsID'])
 
 
 # no RSID matched with data
