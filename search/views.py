@@ -36,7 +36,7 @@ def main(request):
         usingfile = downloadFileList.objects.latest('down_date')
         qr = downloadFileList.objects.filter(file_name=fileOnURL)
         if len(qr) == 0:
-            messages.info(request, '😔 need update 😔 ( it will take 2-3 mins)')
+            messages.info(request, '❗❗ need update ❗❗ ( it will take 2-3 mins)')
         if readfile.empty:
             read_file_from_csv()
 
@@ -60,14 +60,14 @@ def update(request):
     fileOnURL=fd.find_date()
     currfile = downloadFileList.objects.latest('down_date')
     if currfile.file_name==fileOnURL:
-        messages.info(request, 'already updated !')
+        messages.info(request, '😎 already updated 😎')
         return HttpResponseRedirect(reverse('search:main'))
     else:
         filename = fileOnURL+'.vcf.gz'
         fd.down_process(filename)
         newone=downloadFileList(file_name=fileOnURL)
         newone.save()
-        messages.info(request, 'update done !')
+        messages.info(request, '😁 update done 😁')
         return HttpResponseRedirect(reverse('search:main'))
 
 
@@ -93,8 +93,7 @@ def searchRS(request):
             context = {'result': dic}
             return render(request, 'search/result.html', context)
     else:
-        messages.info(request, '😔 inter "rsID" (ex-rs1921) 😔')
-        return HttpResponseRedirect(reverse('search:main'))
+
 
 
 def upload(request):
@@ -119,6 +118,7 @@ def upload(request):
 
 # i want to keep the rsIDs what i insert
     result = pd.merge(txtfile, readfile, how='left', on=['RS'])
+    result.columns = ['RS','CHROM', 'POS', 'ID', 'REF', 'ALT', 'QUAL', 'FILTER', 'CLNSIG']
 # no i want to see only avaliable values(without null values)
     # result = pd.merge(txtfile, readfile, how='left', on=['RS'])
 
