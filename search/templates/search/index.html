@@ -10,20 +10,16 @@
 
       </td>
     </tr>
-    <form method="POST" action="{% url 'search:update' %}">
-      {% csrf_token %}
       <tr align='right'>
         <td colspan=8 style="font-size:80%">
           {% if currUsingFile %}
-          latest update : {{currUsingFile.down_date }}
+          latest update : {{currUsingFile.down_date }} 🔄
           {% else %}
-          nothing to show
+          nothing to show(ask to hongju)
           {% endif %}
-          <input type='submit' value="🔄" title='file update'/>
         </td>
 
       </tr>
-    </form>
     <form method="POST" action="{% url 'search:searchRS' %}">
       {% csrf_token %}
       <tr align=center>

@@ -31,10 +31,11 @@ def main(request):
         fd.down_process(filename)
         newone=downloadFileList(file_name=fileOnURL)
         newone.save()
-    usingfile = downloadFileList.objects.latest('down_date')
+
     if readfile.empty:
         read_file_from_csv()
 
+    usingfile = downloadFileList.objects.latest('down_date')
 
     context = {'currUsingFile': usingfile}
     return render(request, 'search/index.html', context)
