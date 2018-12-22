@@ -13,6 +13,8 @@
 }
 .img{
   background: url("logo.png");
+  background-position: center center;
+  background-size:cover;
 }
 
 input {
