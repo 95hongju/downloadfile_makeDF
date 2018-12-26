@@ -14,6 +14,7 @@ columns = ['CHR', 'POS', 'REF', 'ALT', 'QUAL', 'FILTER', 'rsID', 'clinvar Annota
 readfile = pd.DataFrame(columns=columns)
 print(readfile.empty)
 
+
 # Create your views here.
 def main(request):
     global readfile
@@ -26,7 +27,6 @@ def main(request):
         # check the name from the urls
         fileOnURL=fd.find_date()
         print('-----> ',fileOnURL)
-
         filename = fileOnURL+'.vcf.gz'
         fd.down_process(filename)
         newone=downloadFileList(file_name=fileOnURL)

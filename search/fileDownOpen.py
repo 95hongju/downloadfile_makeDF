@@ -7,6 +7,7 @@ import os
 import shutil
 
 
+
 # before download the file, check the date(latest file upload date)
 def find_date():
     print('check the date ...')
@@ -79,6 +80,8 @@ def down_process(filename):
 
     print("done ! check the file")
 
+def main():
+    pass
 
 if __name__ == '__main__':
     main()
