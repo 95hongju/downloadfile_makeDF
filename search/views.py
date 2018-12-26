@@ -18,15 +18,15 @@ print(readfile.empty)
 def main(request):
     global readfile
 
-    # check the name from the urls
-    fileOnURL=fd.find_date()
-    print('-----> ',fileOnURL)
-
     # get queryset
     q = downloadFileList.objects.all()
 
     # if empty queryset, download file from url
     if len(q) == 0:
+        # check the name from the urls
+        fileOnURL=fd.find_date()
+        print('-----> ',fileOnURL)
+
         filename = fileOnURL+'.vcf.gz'
         fd.down_process(filename)
         newone=downloadFileList(file_name=fileOnURL)
@@ -59,9 +59,7 @@ def searchRS(request):
         read_file_from_csv()
 
     keyword = request.POST['srchkeyword']
-    if 'RS' in keyword or 'rs' in keyword:
-        if 'RS' in keyword:
-            keyword = 'rs'+keyword.split('RS')[1]
+    if 'rs' in keyword:
         result = readfile.loc[readfile['rsID'] == keyword]
         if result.empty:
             messages.info(request, '😔 nothing to show 😔')
@@ -118,10 +116,6 @@ def upload(request):
         context = {'result': dic}
         return render(request, 'search/result.html', context)
 
-
-def result_download(request):
-    table = request.POST
-    return HttpResponse(table)
 
 
 def file_download(request):

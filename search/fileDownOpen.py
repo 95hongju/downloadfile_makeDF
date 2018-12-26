@@ -8,10 +8,6 @@ import shutil
 
 
 # before download the file, check the date(latest file upload date)
-# problem ... what if filename is 20181217 but updated date is 20181205,,?
-def test():
-    print('module import check')
-
 def find_date():
     print('check the date ...')
     url = "ftp://ftp.ncbi.nlm.nih.gov/pub/clinvar/vcf_GRCh37/"
