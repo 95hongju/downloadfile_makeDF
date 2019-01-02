@@ -1,6 +1,11 @@
 # downloadfile_makeDF
 
-(stil working)
-download database from clinvar
-unzip
-make it as dataframe
+
+autoupdate.py - every sunday at 4am auto update
+
+python manage.py runserver //start project
+
+this program based on clinvar database
+can search rsID and download the result
+
+
