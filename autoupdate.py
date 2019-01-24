@@ -7,9 +7,9 @@ import time
 def connect_db():
     try:
         mydb = mysql.connector.connect(
-        host = "10.33.2.222",
+        host = "localhost",
         port = 3306,
-        user = "remote",
+        user = "root",
         passwd = "1234",
         database = "DS_table"
         )
