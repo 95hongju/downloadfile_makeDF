@@ -1,0 +1,87 @@
+
+.btn{
+  background: lightgray;
+  padding: 4px 0;
+  left: 50%;
+  top: 50%;
+  border-radius: 3px;
+    font-size:15px;
+}
+#title {
+  font-family: "Arial Black", Gadget, sans-serif;
+  font-size: 30px;
+  letter-spacing: 2px;
+  word-spacing: 2px;
+  color: #000000;
+  font-weight: 700;
+  text-decoration: none;
+  font-style: italic;
+  font-variant: normal;
+  text-transform: none;
+  }
+#maintable{
+  border-radius: 15px;
+  padding-right: 10px;
+  padding-left: 10px;
+  border: 2px solid darkgray;
+  border-spacing:0 1rem;
+}
+#minitable{
+  border-radius: 15px;
+  padding-right: 10px;
+  padding-left: 10px;
+  border: 2px solid lightgray;
+  border-spacing:0 1rem;
+}
+
+
+
+input[type=submit] {
+  background: rgb(230, 230, 230);
+text-align: center;
+    border: 2px solid orange;
+    height: 30px;
+    border-radius: 4px;
+
+}
+input[type=button] {
+  background: rgb(230, 230, 230);
+text-align: center;
+    border: 2px solid orange;
+    border-radius: 4px;
+    height:30px;
+}
+
+
+.messages{
+  font-style: italic;
+  color: darkorange;
+  font-size:20px;
+  font-weight: bold;
+ 
+
+}
+.messages1{
+  font-style: italic;
+  color: red;
+  font-size:20px;
+  font-weight: bold;
+}
+
+
+#tdtitle{
+  font-weight: 700;
+}
+
+#rsid{
+  font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+  font-size: 30px;
+  letter-spacing: 0.2px;
+  word-spacing: 2px;
+  font-weight: 700;
+}
+
+#desc{
+  letter-spacing: 1.2px;
+  word-spacing: 1.5px;
+  }

@@ -1,0 +1,12 @@
+hongju@diagDev01:~$ source myvenv/bin/activate 
+(myvenv) hongju@DiagDev01:~$ cd downloadfile_makeDF
+(myvenv) hongju@DiagDev01:~/downloadfile_makeDF$ python manage.py runserver 0.0.0.0:8080
+
+10.33.2.222:8002/search
+10.33.2.222:8001/infos
+
+tmux -----
+[new session] tmux new -s {session name}
+[session list] tmux ls
+[access session] tmux at -t {session name}
+[exit session] tmux kill-session -t {session name}

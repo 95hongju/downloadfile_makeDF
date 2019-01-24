@@ -1,0 +1,102 @@
+<input type=button value=" ← BACK " style="width:130px;" onclick="window.location.href='http://10.33.2.222:8001/snp'" />
+<input type=button onclick="exportTableToCSV('result.csv')" value='CSV DOWNLOAD' style="width:20%;"></button>
+
+<br>
+{% for r in reports %}
+<br>
+
+<table id='maintable'>
+    <tr>
+        <td id='rsid'> {{ r.rsID }} </td>
+    </tr>
+    <tr>
+        <td> Gene : {{ r.GENE }} </td>
+    </tr>
+    <tr>
+        <td id='check'>
+            <table width=95% id='minitable' align='center'>
+                <tr>
+                    <td width=1%></td>
+                    <td id='tdtitle' width=10%>Geno</td>
+                    <td id='tdtitle' width=10%>Mag</td>
+                    <td id='tdtitle' width=70%>Summary</td>
+                </tr>
+                {% for t in r.TABLE %}
+                <tr>
+                    {% for v in t.values %}
+                    <td> {{ v }}</td>
+                    {% endfor %}
+                </tr>
+
+                {% endfor %}
+
+
+
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td id='desc'>
+            {% for d in r.DESC %}
+            {{txt}} {{ d }}<br>
+            {% endfor %}
+        </td>
+    </tr>
+
+</table>
+
+
+{% endfor %}
+<br>
+<input type=button onclick="exportTableToCSV('result.csv')" value='CSV DOWNLOAD' style="width:20%;"></button>
+
+
+
+
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'snp/style.css' %}" />
+
+<script>
+function downloadCSV(csv, filename) {
+  var csvFile;
+  var downloadLink;
+
+  // CSV file
+  csvFile = new Blob([csv], {type: "text/csv"});
+
+  // Download link
+  downloadLink = document.createElement("a");
+
+  // File name
+  downloadLink.download = filename;
+
+  // Create a link to the file
+  downloadLink.href = window.URL.createObjectURL(csvFile);
+
+  // Hide download link
+  downloadLink.style.display = "none";
+
+  // Add the link to DOM
+  document.body.appendChild(downloadLink);
+
+  // Click download link
+  downloadLink.click();
+}
+
+function exportTableToCSV(filename) {
+  var csv = [];
+  var rows = document.querySelectorAll("table tr");
+
+  for (var i = 0; i < rows.length; i++) {
+    var tb=rows[i].querySelectorAll("table");
+    if( tb.length !== 0){
+        continue;
+    }
+    txt = rows[i].innerText
+    csv.push(txt);
+  }
+
+  // Download CSV file
+  downloadCSV(csv.join("\n"), filename);
+}
+</script>

@@ -1,0 +1,62 @@
+<head>
+  <title>
+  </title>
+</head>
+
+<body>
+  <input type=button value="HOME 🏠" style="width:130px;" onclick="window.location.href='http://10.33.2.222:8080'" />
+  <br>
+  <table align=center width=600 id=maintable>
+    <tr>
+      <td colspan=2 id='title' width=500 height=200>
+        🕵️‍ SNPedia Report
+      </td>
+    </tr>
+
+{# search form #}
+    <form method="POST" action="{% url 'snp:one_report' %}">
+      {% csrf_token %}
+      <tr align=center>
+        <td colspan=8>
+          <input type=text placeholder="search rsID" name='inputRS' style="width:88%;" />
+          <input type='submit' value="🔍" title='search' />
+        </td>
+      </tr>
+    </form>
+
+{# file upload form #}
+
+        <form method="POST" enctype="multipart/form-data" action="{% url 'snp:file_report' %}">
+          {% csrf_token %}
+          <tr align=center>
+            <td colspan=8>
+              <input type="file" name="file" id="id_file" style="width:73%" />
+              <input type="submit" value="FILE UPLOAD" title='upload and view report' class='btn' style="width:20%" />
+            </td>
+          </tr>
+        </form>
+      </td>
+    </tr>
+
+    <tr>
+      <td align=left>
+        <a href="{% url 'snp:file_download' %}"><input type='button' value='example file download' title='sample file download'></a>
+      </td>
+
+      <td align=center style="font-size: 120%">
+
+        <br>
+
+        {% for message in messages %}
+        <h4 style='color:#ff5733'>{{ message }}
+          {% empty %}
+          <h4 style='color:darkorange'> only [ .txt ] files avaliable !
+            {% endfor %}
+          </h4>
+      </td>
+    </tr>
+
+</body>
+
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'snp/style.css' %}" />

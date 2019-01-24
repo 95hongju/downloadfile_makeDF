@@ -1,0 +1,53 @@
+{% extends "infos/basic.html" %}
+
+            {% block values %}
+
+            <table border=0 align=center width=100%  style="font-size: 12pt;
+            border: 3px lightgray solid;
+            border-radius: 15px;
+            padding-right: 10px;
+            padding-left: 10px;" class="fixed_header">
+
+          <thead>
+
+            <tr class="row">
+              
+              <td>rack</td>
+              <td>box</td>
+              <td>barcode</td>
+              <td>well</td>
+              <td>freezer</td>
+              <td width='20%'>
+                edit/delete
+              </td>
+            </tr>
+          </thead>
+          <tbody>
+
+            {% if tbValues_list %}
+            {% for v in tbValues_list %}
+            <tr align=center>
+
+              
+            <td>{{ v.rack_num }}</td>
+            <td>{{ v.box_num }}</td>
+            <td>{{ v.barcode_num }}</td>
+            <td>{{ v.well_num }}</td>
+            <td>{{ v.freezer_num }}</td>
+            <td>
+              <a href="{% url 'infos:edit' v.id %}"><input type='button' value="✏️" title='edit' style="font-size:100%;" /></a>
+              <a href="{% url 'infos:remove' v.id %}"><input type='button' value="❌" title='remove' style="font-size:100%;" /></a>
+              
+            </td>
+          </tr>
+          {% endfor %}
+          {% else %}
+          <tr>
+            <td colspan=6 class='messages' style="font-size:100%;"><br>N O N E D A T A
+            </td>
+          </tr>
+          {% endif %}
+        </tbody>
+        </table>
+        {% endblock %}
+     

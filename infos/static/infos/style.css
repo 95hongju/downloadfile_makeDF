@@ -1,0 +1,115 @@
+.fixed_header{
+  width: 700px;
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+
+.fixed_header tbody{
+display:block;
+width: 100%;
+overflow: auto;
+height: 400px;
+}
+
+.fixed_header thead tr {
+ display: block;
+}
+.fixed_header tr:hover td{
+  background-color : lightgrey;
+}
+
+.fixed_header thead {
+background: orange;
+}
+
+.fixed_header th, .fixed_header td {
+padding: 5px;
+text-align: center;
+width: 200px;
+}
+
+.addd {
+  border:1;
+  text-align: center;
+  height: 30px;
+  width : 100%;
+}
+.img{
+   background: url("g1.jpg");
+    background-size: 60% 60%;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+table{
+  border-radius: 15px;
+  padding-right: 10px;
+  padding-left: 10px;
+}
+table tr.row td{
+   border: 2px solid orange;
+   border-radius: 10px;
+    text-align: center;
+}
+.btn{
+  background: lightgray;
+  
+  padding: 4px 0;
+  left: 50%;
+  top: 50%;
+  border-radius: 3px;
+    font-size:15px;
+}
+
+
+.result{
+  font-style: italic;
+  font-size: 15px;
+  color:gray;
+}
+.smallsize{
+ width:70px;
+}
+.bigsize{
+  width:140px;
+}
+input[type=text] {
+text-align: center;
+    border: 2px solid orange;
+    border-radius: 4px;
+    height:30px;
+}
+
+input[type=submit] {
+  background: rgb(230, 230, 230);
+text-align: center;
+    border: 2px solid orange;
+    height: 30px;
+    border-radius: 4px;
+
+}
+input[type=button] {
+  background: rgb(230, 230, 230);
+text-align: center;
+    border: 2px solid orange;
+    border-radius: 4px;
+    height:30px;
+}
+.srch{
+  height:30px;
+}
+
+.messages{
+  font-style: italic;
+  color: darkorange;
+  font-size:20px;
+  font-weight: bold;
+ 
+
+}
+.messages1{
+  font-style: italic;
+  color: red;
+  font-size:20px;
+  font-weight: bold;
+}
