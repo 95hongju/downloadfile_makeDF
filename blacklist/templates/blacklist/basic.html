@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+</head>
+
+<body>
+  <input type=button value="HOME 🏠" style="width:130px;" onclick="window.location.href='http://10.33.2.222:8080'" />
+  <br><br>
+  <table align=center width=800 border=0>
+    <tr>
+      <td colspan=2 id=title>
+        🦇 BLACK-LIST
+      </td>
+    </tr>
+
+    <tr>
+      <form method="POST" enctype="multipart/form-data" action="{% url 'blacklist:move_version' %}">
+        {% csrf_token %}
+        <td colspan=2 align=right>
+          <br><br>
+          current : {{version}} &nbsp; <br>
+          Version :
+          <select name='version_name' style="width:250px">
+            <option value="GSAv1.2"> GSAv1.2</option>
+            <option value="GSAMDv2.1"> GSAMDv2.1</option>
+            <option value="GSAMDv2.2"> GSAMDv2.2</option>
+          </select>
+          <input type="submit" value = ' GO ' title="change version"/>
+        </td>
+      </form>
+    </tr>
+
+    <tr>
+      <td id='point'>new data </td>
+      <td>
+        <table>
+          <tr align=center class="addd">
+            <td> CHR  </td>
+            <td> POS  </td>
+            <td> rsID  </td>
+            <td> reason  </td>
+            <td> who  </td>
+            <td> </td>
+          </tr>
+          <form method="POST" action="{% url 'blacklist:add_new' %}">
+            {% csrf_token %}
+            <tr align=center class="addd">
+              <td><input type='text' class="smallsize" name='CHR' /></td>
+              <td><input type='text' class="smallsize" name='POS' /></td>
+              <td><input type='text' class="bigsize" name='rsID' /></td>
+              <td><input type='text' class="bigsize" name='reason' /></td>
+              <td><input type='text' class="smallsize" name='who' /></td>
+              <td><input type='submit' value=' ADD ' title='add new data' style="width:100%; font-size:100%;" class='btn' /></a>
+              </td>
+            </tr>
+          </form>
+
+        </table>
+      </td></tr>
+
+
+
+      <tr>
+        <form action="{% url 'blacklist:search' %}" method='POST'>
+          <td id='point'>
+            search
+          </td>
+          <td>&nbsp;
+            <select name='option_name' class='srch'>
+              <option value="CHR"> CHR</option>
+              <option value="POS"> POS</option>
+              <option value="rsID"> rsID</option>
+              <option value="WHO"> WHO</option>
+            </select>
+            {% csrf_token %}
+            <input type=text placeholder="search" name='search' style="width:60%;" />
+            <input type='submit' title='search' value="🔍" style="font-size:100%;" />
+
+          </td>
+        </form>
+      </tr>
+      <tr>
+        <td colspan=2 id='result'> searched " " in {{ result.ver }} &nbsp;</td>
+      </tr>
+
+
+      <tr style="font-size:90%; font-style:bold" align=center>
+        <td colspan=2 >
+          {% block values %}
+
+          {% endblock %}
+        </td>
+      </tr>
+
+
+
+
+
+      <form method="POST" enctype="multipart/form-data" action="{% url 'infos:upload' %}">
+        {% csrf_token %}
+        <tr>
+          <td colspan=2 align=center>
+            <input type="file" name="file" id="id_file" style="width:72%" />
+            <input type="submit" value=" FILE UPLOAD " class='btn' style="font-size:100%; width:26%" />
+          </td>
+        </tr>
+        <tr>
+          <td colspan=2 align=left>
+            <a href="{% url 'infos:file_download' %}"><input type='button' value="example download" title='sample file download'></a>
+          </td>
+        </tr>
+        <tr>
+          <td colspan=2 align=center>
+
+
+            <br>
+            {% for message in messages %}
+            <ul class="messages1">
+              <li>{{ message }}</li>
+            </ul>
+            {% empty %}
+            <ul class="messages">
+              <li> only [ .txt ] files avaliable !</li>
+            </ul>
+
+
+            {% endfor %}
+          </td>
+        </tr>
+      </form>
+    </table>
+
+
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'blacklist/style.css' %}" />
+  </body>
+
+  </html>
