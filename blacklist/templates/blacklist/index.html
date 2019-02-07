@@ -1,0 +1,57 @@
+
+{% extends "blacklist/basic.html" %}
+
+{% block values %}
+
+<table border=0 align=center  style="font-size: 12pt;
+border: 3px lightgray solid;
+border-radius: 15px;
+padding-right: 10px;
+width:100%;
+padding-left: 10px;" class="fixed_header">
+
+<thead>
+
+  <tr class="row">
+
+    <td style="width:8%;">CHR</td>
+    <td>POS</td>
+    <td>rsID</td>
+    <td style="width:25%;">reason</td>
+    <td>WHO</td>
+    <td>date</td>
+    <td>
+      edit/delete
+    </td>
+  </tr>
+</thead>
+
+<tbody>
+
+  {% if result %}
+  {% for v in result %}
+  <tr align=center>
+
+
+    <td style="width:8%;">{{ v.chr }}</td>
+    <td>{{ v.pos }}</td>
+    <td>{{ v.rsid }}</td>
+    <td style="width:25%;">{{ v.reason }}</td>
+    <td>{{ v.who }}</td>
+    <td>{{ v.date.date }}</td>
+    <td>
+      <a href="{% url 'infos:edit' v.id %}"><input type='button' value="✏️" title='edit' style="font-size:100%;" /></a>
+      <a href="{% url 'infos:remove' v.id %}"><input type='button' value="❌" title='remove' style="font-size:100%;" /></a>
+
+    </td>
+  </tr>
+  {% endfor %}
+  {% else %}
+  <tr>
+    <td colspan=7 class='messages' style="font-size:100%;"><br>N O N E D A T A
+    </td>
+  </tr>
+  {% endif %}
+</tbody>
+</table>
+{% endblock %}

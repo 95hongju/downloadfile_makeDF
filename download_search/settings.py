@@ -32,6 +32,9 @@ ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'search.apps.SearchConfig',
+    'infos.apps.InfosConfig',
+    'snp.apps.SnpConfig',
+    'blacklist.apps.BlacklistConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
