@@ -18,9 +18,10 @@
     <tr>
       <form method="POST" enctype="multipart/form-data" action="{% url 'blacklist:move_version' %}">
         {% csrf_token %}
-        <td colspan=2 align=right>
+        <td colspan=2>
           <br><br>
-          current : {{version}} &nbsp; <br>
+        <p class='messages1'> current : {{version}} &nbsp;  </p>
+        <div align=right>
           Version :
           <select name='version_name' style="width:250px">
             <option value="GSAv1.2"> GSAv1.2</option>
@@ -28,6 +29,7 @@
             <option value="GSAMDv2.2"> GSAMDv2.2</option>
           </select>
           <input type="submit" value = ' GO ' title="change version"/>
+        </div>
         </td>
       </form>
     </tr>
@@ -47,9 +49,9 @@
           <form method="POST" action="{% url 'blacklist:add_new' %}">
             {% csrf_token %}
             <tr align=center class="addd">
-              <td><input type='text' class="smallsize" name='CHR' /></td>
-              <td><input type='text' class="smallsize" name='POS' /></td>
-              <td><input type='text' class="bigsize" name='rsID' /></td>
+              <td><input type='text' class="smallsize" name='chr' /></td>
+              <td><input type='text' class="smallsize" name='pos' /></td>
+              <td><input type='text' class="bigsize" name='rsid' /></td>
               <td><input type='text' class="bigsize" name='reason' /></td>
               <td><input type='text' class="smallsize" name='who' /></td>
               <td><input type='submit' value=' ADD ' title='add new data' style="width:100%; font-size:100%;" class='btn' /></a>
