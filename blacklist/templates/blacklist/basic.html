@@ -14,22 +14,24 @@
         🦇 BLACK-LIST
       </td>
     </tr>
-
+    {# ---------------------------------------------------------------- #}
+    {# top of table #}
+    {# ---------------------------------------------------------------- #}
     <tr>
       <form method="POST" enctype="multipart/form-data" action="{% url 'blacklist:move_version' %}">
         {% csrf_token %}
         <td colspan=2>
           <br><br>
-        <p class='messages1'> current : {{version}} &nbsp;  </p>
-        <div align=right>
-          Version :
-          <select name='version_name' style="width:250px">
-            <option value="GSAv1.2"> GSAv1.2</option>
-            <option value="GSAMDv2.1"> GSAMDv2.1</option>
-            <option value="GSAMDv2.2"> GSAMDv2.2</option>
-          </select>
-          <input type="submit" value = ' GO ' title="change version"/>
-        </div>
+          <p class='messages1'> current : {{version}} &nbsp;  </p>
+          <div align=right>
+            Version :
+            <select name='version_name' style="width:250px">
+              <option value="GSAv1.2"> GSAv1.2</option>
+              <option value="GSAMDv2.1"> GSAMDv2.1</option>
+              <option value="GSAMDv2.2"> GSAMDv2.2</option>
+            </select>
+            <input type="submit" value = ' GO ' title="change version"/>
+          </div>
         </td>
       </form>
     </tr>
@@ -63,6 +65,9 @@
       </td></tr>
 
 
+      {# ---------------------------------------------------------------- #}
+      {# search #}
+      {# ---------------------------------------------------------------- #}
 
       <tr>
         <form action="{% url 'blacklist:search' %}" method='POST'>
@@ -97,10 +102,11 @@
       </tr>
 
 
+      {# ---------------------------------------------------------------- #}
+      {# about files #}
+      {# ---------------------------------------------------------------- #}
 
-
-
-      <form method="POST" enctype="multipart/form-data" action="{% url 'infos:upload' %}">
+      <form method="POST" enctype="multipart/form-data" action="{% url 'blacklist:upload' %}">
         {% csrf_token %}
         <tr>
           <td id='point'> file upload </td>
@@ -108,7 +114,8 @@
             <input type="file" name="file" id="id_file" style="width:72%" />
             <input type="submit" value=" FILE UPLOAD " class='btn' style="font-size:100%; width:26%" />
 
-            <a href="{% url 'infos:file_download' %}"><input type='button' value="example download" title='sample file download'></a>
+            <a href="{% url 'blacklist:file_download' %}"><input type='button' value="example download" title='sample file download'></a>
+            <input type='button' value='fileupload help...mouseover' title = '1) download example file. 2) open the file and delete test data(not column name), and input data what you want.only rsID can have blank, null, empty data. or it will occur error. 3) after you entering the data, delimeter is tab, save it as csv file. 4) click browse button and choose the csv file what you made just before. 5) check the current version of database and click fileupload button on the right side. 6) if something wrong, message will appear at the bottom of this button'  />
           </td>
         </tr>
         <tr>
@@ -124,20 +131,20 @@
             </label>
             {% empty %}
             <label class="messages">
-              &nbsp; only [ .txt ] files avaliable !
+              &nbsp; only [ .txt ] files avaliable for file upload!
             </label>
           </td>
 
 
-            {% endfor %}
-          </td>
-        </tr>
-      </form>
-    </table>
+          {% endfor %}
+        </td>
+      </tr>
+    </form>
+  </table>
 
 
-    {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'blacklist/style.css' %}" />
-  </body>
+  {% load static %}
+  <link rel="stylesheet" type="text/css" href="{% static 'blacklist/style.css' %}" />
+</body>
 
-  </html>
+</html>

@@ -84,15 +84,19 @@ table tr.row td{
 }
 #s{
   width:50px;
+  font-size:14px;
 }
 #m{
  width:90px;
+ font-size:14px;
 }
 #l{
   width:160px;
+  font-size:14px;
 }
 #xl{
   width:110px;
+  font-size:14px;
 }
 input[type=text] {
 text-align: center;
