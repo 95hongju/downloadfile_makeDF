@@ -92,3 +92,34 @@ def edit_done(request,id):
     except:
         messages.info(request, 'error : invalid pkID')
         return HttpResponseRedirect(reverse('blacklist:index'))
+
+
+def search(request):
+    global version
+    #select box value
+    option_name=request.POST['option_name']
+    search_keyword=request.POST['searchword']
+    #get keyword -> make list with result objects
+    if search_keyword=='':
+        q = Version.objects.get(version_name= version)
+        c = q.blacks_set.all()
+        context={'version':version, 'result' : c}
+    else:
+        blk_list=search_result(option_name, search_keyword, version)
+        srh="results '"+search_keyword + "' in "+option_name+'('+version+')'
+        context={'result': blk_list,'srh':srh, 'version':version}
+    return render(request,'blacklist/index.html',context)
+
+
+#each option name (html->combobox data) have different filter parameter
+def search_result(option_name, search_keyword,version):
+    q = Version.objects.get(version_name=version)
+
+    if option_name == 'CHR':
+        return q.blacks_set.filter(chr__contains=search_keyword)
+    elif option_name == 'POS':
+        return q.blacks_set.filter(pos__contains=search_keyword)
+    elif option_name == 'rsID':
+        return q.blacks_set.filter(rsid__contains=search_keyword)
+    elif option_name == 'WHO':
+        return q.blacks_set.filter(who__contains=search_keyword)

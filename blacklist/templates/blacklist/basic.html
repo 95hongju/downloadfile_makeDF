@@ -42,8 +42,8 @@
             <td id='s'> CHR  </td>
             <td id='m'> POS  </td>
             <td id='l'> rsID  </td>
-            <td id='l'> reason  </td>
-            <td id='m'> who  </td>
+            <td id='l'> Reason  </td>
+            <td id='m'> Who  </td>
             <td> </td>
           </tr>
           <form method="POST" action="{% url 'blacklist:add_new' %}">
@@ -77,14 +77,14 @@
               <option value="WHO"> WHO</option>
             </select>
             {% csrf_token %}
-            <input type=text placeholder="search" name='search' style="width:60%;" />
+            <input type=text placeholder="search" name='searchword' style="width:60%;" />
             <input type='submit' title='search' value="🔍" style="font-size:100%;" />
 
           </td>
         </form>
       </tr>
       <tr>
-        <td colspan=2 id='result'> searched " " in {{ result.ver }} &nbsp;</td>
+        <td colspan=2 id='result'> {{srh}} &nbsp;</td>
       </tr>
 
 
