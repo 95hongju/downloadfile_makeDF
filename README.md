@@ -8,3 +8,4 @@
 19.01.22 DB에서 먼저 결과검색 후 API로 검색
 19.01.22 snpedia 검색 한개만 하는 것 추가
 19.01.23 API에서 검색한 것들을 파일로 남겨서 매주 일요일마다 DB update(snp/snpmaking 에 snp만드는데 썼던 ipynb/py코드 있음)
+19.02.08 blacklist등록하는 기능 추가(blacklist) 수정/삭제/하나추가/파일업로드로 여러개 
