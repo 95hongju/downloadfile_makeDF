@@ -1,4 +1,3 @@
-
 {% extends "blacklist/basic.html" %}
 
 {% block values %}
@@ -14,13 +13,13 @@ padding-left: 10px;" class="fixed_header">
 
   <tr class="row">
 
-    <td style="width:8%;">CHR</td>
-    <td>POS</td>
-    <td>rsID</td>
-    <td style="width:25%;">reason</td>
-    <td>WHO</td>
-    <td>date</td>
-    <td>
+    <td id='s'>CHR</td>
+    <td id='m'>POS</td>
+    <td id='m'>rsID</td>
+    <td id='l'>Reason</td>
+    <td id='xl'>Who</td>
+    <td id='m'>Date</td>
+    <td id='xl'>
       edit/delete
     </td>
   </tr>
@@ -33,15 +32,15 @@ padding-left: 10px;" class="fixed_header">
   <tr align=center>
 
 
-    <td style="width:8%;">{{ v.chr }}</td>
-    <td>{{ v.pos }}</td>
-    <td>{{ v.rsid }}</td>
-    <td style="width:25%;">{{ v.reason }}</td>
-    <td>{{ v.who }}</td>
-    <td>{{ v.date.date }}</td>
-    <td>
-      <a href="{% url 'infos:edit' v.id %}"><input type='button' value="✏️" title='edit' style="font-size:100%;" /></a>
-      <a href="{% url 'infos:remove' v.id %}"><input type='button' value="❌" title='remove' style="font-size:100%;" /></a>
+    <td id='s'>{{ v.chr }}</td>
+    <td id='m'>{{ v.pos }}</td>
+    <td id='m'>{{ v.rsid }}</td>
+    <td id='l'>{{ v.reason }}</td>
+    <td id='xl'>{{ v.who }}</td>
+    <td id='m'>{{ v.date.date }}</td>
+    <td id='xl'>
+      <a href="{% url 'blacklist:edit' v.id %}"><input type='button' value="✏️" title='edit' style="font-size:100%;" /></a>
+      <a href="{% url 'blacklist:remove' v.id %}"><input type='button' value="❌" title='remove' style="font-size:100%;" /></a>
 
     </td>
   </tr>
