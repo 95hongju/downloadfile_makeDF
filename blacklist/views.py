@@ -1,11 +1,16 @@
-from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
-from django.urls import reverse
 from django.contrib import messages
+from django.shortcuts import render
+from django.urls import reverse
+from io import StringIO
+import pandas as pd
+import os
 
 from .models import Version, Blacks
 from .forms import inputForm
 
+
+#default version
 version = 'GSAv1.2'
 
 
@@ -17,6 +22,9 @@ def index(request):
     return render(request, 'blacklist/index.html', context)
 
 
+# ---------------------------------------
+# change version
+# ---------------------------------------
 def move_version(request):
     global version
     des_ver = request.POST['version_name']
@@ -24,9 +32,9 @@ def move_version(request):
     return HttpResponseRedirect(reverse('blacklist:index'))
 
 
-def search(request):
-    return HttpResponse('search')
-
+# ---------------------------------------
+# add new data into database
+# ---------------------------------------
 def add_new(request):
     global version
     f=inputForm(request.POST)
@@ -47,6 +55,9 @@ def add_new(request):
         return HttpResponseRedirect(reverse('blacklist:index'))
 
 
+# ---------------------------------------
+# database remove
+# ---------------------------------------
 def remove(request, id):
     blk = Blacks.objects.get(pk=id)
     blk.delete()
@@ -54,6 +65,9 @@ def remove(request, id):
     return HttpResponseRedirect(reverse('blacklist:index'))
 
 
+# ---------------------------------------
+# database edit
+# ---------------------------------------
 def edit(request,id):
     try:
         global version
@@ -94,6 +108,9 @@ def edit_done(request,id):
         return HttpResponseRedirect(reverse('blacklist:index'))
 
 
+# ---------------------------------------
+# search data in database
+# ---------------------------------------
 def search(request):
     global version
     #select box value
@@ -123,3 +140,60 @@ def search_result(option_name, search_keyword,version):
         return q.blacks_set.filter(rsid__contains=search_keyword)
     elif option_name == 'WHO':
         return q.blacks_set.filter(who__contains=search_keyword)
+
+
+# ---------------------------------------
+# file upload & download
+# ---------------------------------------
+
+#example file download
+def file_download(request):
+    f=str(os.getcwd())+'/examples/example_blacklist.csv'
+    response = HttpResponse(open(f,'rb'), content_type='application/vnd.ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="[sample]file_upload(blacklist).csv"'
+    return response
+
+
+#open and read file -> insert data in to database
+def upload(request):
+    global version
+
+    try:
+        #no file
+        if request.FILES.__len__()==0:
+            messages.info(request, 'There are no files !')
+            return HttpResponseRedirect(reverse('blacklist:index'))
+        #not csv file
+        uploadfile = request.FILES['file']
+        if uploadfile.name.find('csv')<0:
+            messages.info(request, ' This is not csv file !')
+            return HttpResponseRedirect(reverse('blacklist:index'))
+
+        #read file
+        read = uploadfile.read().decode('utf8')
+        testdata = StringIO(read)
+        data = pd.read_csv(testdata, sep='\t')
+
+        #allow null only in rsID
+        data['rsID'] = data['rsID'].fillna('N/A')
+
+        #check the null data in txt file
+        if data.isnull().sum().sum()!=0:
+            print(data)
+            messages.info(request, 'check the file ! null data in file (blank only allowed in rsID) ')
+            return HttpResponseRedirect(reverse('blacklist:index'))
+
+        #else, data save
+        else:
+            q = Version.objects.get(version_name=version)
+
+            for index,row in data.iterrows():
+                c = q.blacks_set.create(chr=row['CHR'],pos=row['POS'],rsid=row['rsID'],reason=row['Reason'],who=row['Who'])
+
+            messages.info(request, 'upload & save done !')
+            return HttpResponseRedirect(reverse('blacklist:index'))
+
+    except Exception as e:
+        print(e)
+        messages.info(request, 'check the file ! [ '+ str(e) + ']')
+        return HttpResponseRedirect(reverse('blacklist:index'))
