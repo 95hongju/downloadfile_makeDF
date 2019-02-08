@@ -27,8 +27,27 @@ padding-left: 10px;" class="fixed_header">
 
 <tbody>
 
-  {% if result %}
-  {% for v in result %}
+  {% for v in blk_list %}
+  {%if v == blk %}
+  <form method="POST" action="{% url 'blacklist:edit_done' v.id %}">
+    {% csrf_token %}
+    <tr align=center>
+
+
+      <td id='s'><input type='text' value={{v.chr }}  name='chr' size='1' /></td>
+      <td id='m'><input type='text' value={{v.pos }} name='pos' size='5' /></td>
+      <td id='m'><input type='text' value={{v.rsid }} name='rsid' size='5' /></td>
+      <td id='l'><input type='text' value={{v.reason }} name='reason' size='11'/></td>
+      <td id='xl'><input type='text' value={{v.who }}  name='who' size='6'/></td>
+      <td id='m'> <input type='text' value='cant; fix' size='5' disabled /></td>
+      <td id='xl'>
+        <input type='submit' value="✅" title='edit!!' style="font-size:100%;" />
+        <a href="{% url 'blacklist:index' %}"><input type='button' value="✖️" title='cancel edit' style="font-size:100%;" /></a>
+
+      </td>
+    </tr>
+  </form>
+  {% else %}
   <tr align=center>
 
 
@@ -37,20 +56,15 @@ padding-left: 10px;" class="fixed_header">
     <td id='m'>{{ v.rsid }}</td>
     <td id='l'>{{ v.reason }}</td>
     <td id='xl'>{{ v.who }}</td>
-    <td id='m'>{{ v.date.date }}</td>
+    <td id='m'>{{v.date.date }}</td>
     <td id='xl'>
       <a href="{% url 'blacklist:edit' v.id %}"><input type='button' value="✏️" title='edit' style="font-size:100%;" /></a>
       <a href="{% url 'blacklist:remove' v.id %}"><input type='button' value="❌" title='remove' style="font-size:100%;" /></a>
+    </td>
+  </tr>
 
-    </td>
-  </tr>
-  {% endfor %}
-  {% else %}
-  <tr>
-    <td colspan=7 class='messages' style="font-size:100%;"><br>N O N E D A T A
-    </td>
-  </tr>
   {% endif %}
+  {% endfor %}
 </tbody>
 </table>
 {% endblock %}

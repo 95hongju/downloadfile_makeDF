@@ -82,11 +82,17 @@ table tr.row td{
   color:gray;
   text-align: right;
 }
-.smallsize{
- width:70px;
+#s{
+  width:50px;
 }
-.bigsize{
-  width:140px;
+#m{
+ width:90px;
+}
+#l{
+  width:160px;
+}
+#xl{
+  width:110px;
 }
 input[type=text] {
 text-align: center;
@@ -118,7 +124,7 @@ text-align: center;
 .messages{
   font-style: italic;
   color: darkorange;
-  font-size:20px;
+  font-size:18px;
   font-weight: bold;
 
 

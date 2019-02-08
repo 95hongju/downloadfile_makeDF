@@ -39,21 +39,21 @@
       <td>
         <table>
           <tr align=center class="addd">
-            <td> CHR  </td>
-            <td> POS  </td>
-            <td> rsID  </td>
-            <td> reason  </td>
-            <td> who  </td>
+            <td id='s'> CHR  </td>
+            <td id='m'> POS  </td>
+            <td id='l'> rsID  </td>
+            <td id='l'> reason  </td>
+            <td id='m'> who  </td>
             <td> </td>
           </tr>
           <form method="POST" action="{% url 'blacklist:add_new' %}">
             {% csrf_token %}
             <tr align=center class="addd">
-              <td><input type='text' class="smallsize" name='chr' /></td>
-              <td><input type='text' class="smallsize" name='pos' /></td>
-              <td><input type='text' class="bigsize" name='rsid' /></td>
-              <td><input type='text' class="bigsize" name='reason' /></td>
-              <td><input type='text' class="smallsize" name='who' /></td>
+              <td><input type='text' id='s' name='chr' /></td>
+              <td><input type='text' id='m' name='pos' /></td>
+              <td><input type='text' id='l' name='rsid' /></td>
+              <td><input type='text' id='l' name='reason' /></td>
+              <td><input type='text' id='m' name='who' /></td>
               <td><input type='submit' value=' ADD ' title='add new data' style="width:100%; font-size:100%;" class='btn' /></a>
               </td>
             </tr>
@@ -103,29 +103,30 @@
       <form method="POST" enctype="multipart/form-data" action="{% url 'infos:upload' %}">
         {% csrf_token %}
         <tr>
-          <td colspan=2 align=center>
+          <td id='point'> file upload </td>
+          <td>
             <input type="file" name="file" id="id_file" style="width:72%" />
             <input type="submit" value=" FILE UPLOAD " class='btn' style="font-size:100%; width:26%" />
-          </td>
-        </tr>
-        <tr>
-          <td colspan=2 align=left>
+
             <a href="{% url 'infos:file_download' %}"><input type='button' value="example download" title='sample file download'></a>
           </td>
         </tr>
         <tr>
-          <td colspan=2 align=center>
-
+          <td id='point'>
+            message
+          </td>
+          <td>
 
             <br>
             {% for message in messages %}
-            <ul class="messages1">
-              <li>{{ message }}</li>
-            </ul>
+            <label class="messages1">
+              &nbsp; {{ message }}
+            </label>
             {% empty %}
-            <ul class="messages">
-              <li> only [ .txt ] files avaliable !</li>
-            </ul>
+            <label class="messages">
+              &nbsp; only [ .txt ] files avaliable !
+            </label>
+          </td>
 
 
             {% endfor %}
