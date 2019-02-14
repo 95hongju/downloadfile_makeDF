@@ -1,0 +1,50 @@
+<title>
+        Home/SNPedia/Usage
+</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.95.3/js/materialize.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.95.3/css/materialize.min.css" rel="stylesheet" />
+<br>
+<div id='title'>
+        ☝️ SNPedia Usage
+</div>
+<div>
+    <ul class="collapsible" data-collapsible="accordion">
+            <li>
+                    <div class="collapsible-header"><i class="mdi-navigation-chevron-right"></i> Search </div>
+                    <div class="collapsible-body">
+                        <p>
+                            1. Enter rsID you are looking for. <br>
+                            2. Click the 🔍(search) button. <br>
+                            3. Check the results.
+                        </p>
+                        <p id='img' class='search'></p>
+                    </div>
+                </li>
+        <li>
+            <div class="collapsible-header"><i class="mdi-navigation-chevron-right"></i> Upload File </div>
+            <div class="collapsible-body">
+                <p>
+                        1. Click the 'example file download' button & save the example file. <br>
+                        2. Open the file, and enter the data you want to upload. <br>
+                        3. Choose the file and click the 'FILE UPLOAD' button. <br>
+                        4. Check the results.
+                </p>
+                <p id='img' class='file'></p>
+            </div>
+        </li>
+        <li>
+            <div class="collapsible-header"><i class="mdi-navigation-chevron-right"></i> Download report </div>
+            <div class="collapsible-body">
+                <p>
+                    You can download the results. <br>
+                    Click the "csv download" button at the bottom of the result.
+                </p>
+                <p id='img' class='download'></p>
+            </div>
+        </li>
+    </ul>
+</div>
+
+{% load static %}
+<link rel='stylesheet' type='text/css' href="{% static 'snp/usage.css' %}" />

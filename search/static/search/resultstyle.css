@@ -11,6 +11,7 @@ table tr.row td{
    border-radius: 10px;
 }
 
+
 tr{
   height: 30px;
 }
@@ -39,5 +40,5 @@ input[type=button] {
   border: 2px solid orange;
   border-radius: 4px;
   height:30px;
-  width:20%;
+  
 }

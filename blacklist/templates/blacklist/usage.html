@@ -1,0 +1,88 @@
+<title>
+    Home/Low Quality Marker/Usage
+</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.95.3/js/materialize.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.95.3/css/materialize.min.css" rel="stylesheet" />
+<br>
+<div id='title'>
+    ☝️ Low Quality Marker Usage
+</div>
+<div>
+    <ul class="collapsible" data-collapsible="accordion">
+        <li>
+            <div class="collapsible-header"><i class="mdi-navigation-chevron-right"></i> Check the current Version</div>
+            <div class="collapsible-body">
+                <p>
+                    You should check the current version of data.
+                    <p id='img' class='version'></p>
+                </p>
+
+            </div>
+        </li>
+        <li>
+            <div class="collapsible-header"><i class="mdi-navigation-chevron-right"></i> Add </div>
+            <div class="collapsible-body">
+                <p>
+                    1. Check the current version.
+                    <br>
+                    2. input data (rsID is optional.)<br>
+                    3. click add(ADD) button.
+                    <p id='img' class='add'></p>
+                </p>
+            </div>
+        </li>
+        <li>
+            <div class="collapsible-header"><i class="mdi-navigation-chevron-right"></i> Search </div>
+            <div class="collapsible-body">
+                <p>
+                    1. Check the current version of data. <br>
+                    2. Select the category.(CHR/POS/rsID/Registered by) <br>
+                    3. Enter the keyword and click 🔍(search) button. <br>
+                    <p id='img' class='search'></p>
+                </p>
+            </div>
+        </li>
+        <li>
+            <div class="collapsible-header"><i class="mdi-navigation-chevron-right"></i> Edit </div>
+            <div class="collapsible-body">
+                <p>
+                    1. Click the️️ ️️️️️✏️ (edit) button. <br>
+                    2. Change the data. (rsID is optional, the other data are required. )<br>
+                    3. Click ✅(edit done) button.
+                    <p id='img' class='edit1'></p>
+
+                    <br>rsID is optional data.<br>
+                    if you entered blank, it will occur error.
+                    <p id='img' class='edit2'></p>
+                </p>
+            </div>
+        </li>
+        <li>
+            <div class="collapsible-header"><i class="mdi-navigation-chevron-right"></i>Delete </div>
+            <div class="collapsible-body">
+                <p>1. Click the ❌(remove) button of the data.<br>
+                    <p id='img' class='delete'></p>
+                </p>
+            </div>
+        </li>
+        <li>
+            <div class="collapsible-header"><i class="mdi-navigation-chevron-right"></i> Upload file </div>
+            <div class="collapsible-body">
+                <p>1. Click the sample data download button on the bottom of the page.
+                    <br> 2. Open the downloaded file. The delimeter is tab.
+                    <br> 3. delete the tested data and input the REAL data.(DO NOT delete the columns)
+                    <br> 4. save it as csv file. (delimeter is tab)
+                    <p id='img' class='upload1'></p>
+                    5. choose the file. <br> 6. click 'file upload' button.<br>
+                    7. check the data.
+                    <p id='img' class='upload2'></p>
+
+                </p>
+            </div>
+        </li>
+    </ul>
+</div>
+
+{% load static %}
+<link rel='stylesheet' type='text/css' href="{% static 'blacklist/usage.css' %}" />

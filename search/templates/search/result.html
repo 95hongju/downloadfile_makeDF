@@ -1,17 +1,24 @@
+<title>
+  Home/RsID-Position Map/result
+</title>
+<input type=button value=" ← BACK " style="width:130px;" onclick="window.location.href='http://127.0.0.1:8000/search'" />
 <br>
-<table  width=800>
-    <tr class='row'>
-        <td> rsID </td>
-        <td> CHR </td>
-        
-    <td width=150> POS </td>
+
+<table  width=1200>
+  <tr  class='row'>
+    <br>
+    <td width='200px'> rsID </td>
+    <td> CHR </td>
+    <td width=20%> POS </td>
     <td> REF </td>
     <td> ALT </td>
     <td> QUAL </td>
     <td> FILTER </td>
     <td> clinvar Annotation </td>
-  </tr>
+    <td> GSA v1.2</td>
+    <td> GSAMD v2.1 </td>
 
+  </tr>
 {% for e in result %}
   <tr>
     {% for k,v in e.items %}
@@ -20,13 +27,16 @@
     </td>
     {% endfor %}
   </tr>
-  {% endfor %}
+{% endfor %}
+
+
+
+
 
 </table>
 <br>
-<input type=button onclick="exportTableToCSV('result.csv')" value='CSV DOWNLOAD'></button>
+<input type=button onclick="exportTableToCSV('result.csv')" value='CSV DOWNLOAD' style="width:20%;"></button>
 
-</form>
 
 
 

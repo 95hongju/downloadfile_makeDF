@@ -60,19 +60,26 @@ def file_report(request):
 
     return render(request, 'snp/report_snp.html', context)
 
+
 def one_report(request):
     rsID = request.POST['inputRS']
     if 'rs' in rsID:
         reports=[]
         reports.append(reportmaker(rsID))
-        print(reports)
+        #print(reports)
         context = {'reports': reports,'txt':' - '}
         return render(request, 'snp/report_snp.html', context)
     else :
         messages.info(request, '😔 insert "rsID" (ex-rs6152) 😔')
         return HttpResponseRedirect(reverse('snp:main'))
+
+
 def file_download(request):
     f = str(os.getcwd())+'/examples/example_snp.txt'
     response = HttpResponse(open(f, 'rb'), content_type='application/vnd.ms-excel')
     response['Content-Disposition'] = 'attachment; filename="[sample]file_upload(snp).txt"'
     return response
+
+
+def usage(request):
+    return render(request, 'snp/usage.html')

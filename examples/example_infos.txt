@@ -1,5 +1,0 @@
-rack_num    box_num barcode_num well_num    freezer_num
-101	1	TST303848	3	2032
-102	1	TST310294	2	1038
-302	3	TST248201	1	4023
-204	2	TST201842	1	2932

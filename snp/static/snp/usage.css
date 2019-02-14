@@ -1,0 +1,32 @@
+#img{
+    width:100%;
+    height: 100%;
+    background-repeat: no-repeat;
+}
+#title {
+    font-family: "Arial Black", Gadget, sans-serif;
+    font-size: 30px;
+    letter-spacing: 2px;
+    word-spacing: 2px;
+    color: #000000;
+    font-weight: 700;
+    text-decoration: none;
+    font-style: italic;
+    font-variant: normal;
+    text-transform: none;
+    }
+
+.search{
+    background: url('gif/search.gif');
+}
+
+
+.file{
+    background: url('gif/file.gif');
+}
+.download{
+    background: url('gif/download.gif');
+    width:120%;
+    height:120%;
+}
+

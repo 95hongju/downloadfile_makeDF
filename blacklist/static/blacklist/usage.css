@@ -1,0 +1,44 @@
+#img{
+    width:100%;
+    height: 100%;
+    background-repeat: no-repeat;
+}
+#title {
+    font-family: "Arial Black", Gadget, sans-serif;
+    font-size: 30px;
+    letter-spacing: 2px;
+    word-spacing: 2px;
+    color: #000000;
+    font-weight: 700;
+    text-decoration: none;
+    font-style: italic;
+    font-variant: normal;
+    text-transform: none;
+    }
+.add{
+    background : url('gif/add.gif');
+    
+}
+.version{
+    background: url('gif/version.gif');
+}
+.search{
+    background: url('gif/search.gif');
+}
+.edit1{
+    background: url('gif/edit1.gif');
+}
+.edit2{
+    background: url('gif/edit2.gif');
+}
+.delete{
+    background: url('gif/delete.gif');
+}
+
+.upload1{
+    background: url('gif/upload1.gif');
+}
+.upload2{
+    background: url('gif/upload2.gif');
+}
+

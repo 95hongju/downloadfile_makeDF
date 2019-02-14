@@ -172,7 +172,8 @@ def upload(request):
         #read file
         read = uploadfile.read().decode('utf8')
         testdata = StringIO(read)
-        data = pd.read_csv(testdata, sep='\t')
+        dtypes = {'CHR':str, 'POS':str, 'rsID':str,'Reason':str, 'Registered by':str}
+        data = pd.read_csv(testdata, sep='\t', dtype = dtypes)
 
         #allow null only in rsID
         data['rsID'] = data['rsID'].fillna('N/A')
@@ -187,8 +188,8 @@ def upload(request):
         else:
             q = Version.objects.get(version_name=version)
 
-            for index,row in data.iterrows():
-                c = q.blacks_set.create(chr=row['CHR'],pos=row['POS'],rsid=row['rsID'],reason=row['Reason'],who=row['Who'])
+            for index, row in data.iterrows():
+                c = q.blacks_set.create(chr=row['CHR'],pos=row['POS'],rsid=row['rsID'],reason=row['Reason'],who=row['Registered by'])
 
             messages.info(request, 'upload & save done !')
             return HttpResponseRedirect(reverse('blacklist:index'))
@@ -197,3 +198,7 @@ def upload(request):
         print(e)
         messages.info(request, 'check the file ! [ '+ str(e) + ']')
         return HttpResponseRedirect(reverse('blacklist:index'))
+
+
+def usage(request):
+    return render(request, 'blacklist/usage.html')

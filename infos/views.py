@@ -122,3 +122,7 @@ def file_download(request):
     response = HttpResponse(open(f,'rb'), content_type='application/vnd.ms-excel')
     response['Content-Disposition'] = 'attachment; filename="[sample]file_upload(barcode).txt"'
     return response
+
+
+def usage(request):
+    return render(request, 'infos/usage.html')
