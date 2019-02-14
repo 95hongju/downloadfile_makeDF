@@ -128,12 +128,19 @@ text-align: center;
 .messages{
   font-style: italic;
   color: darkorange;
-  font-size:18px;
+  font-size:17px;
   font-weight: bold;
+  
 
 
 }
 .messages1{
+  font-style: italic;
+  color: red;
+  font-size:17px;
+  font-weight: bold;
+}
+.messages2{
   font-style: italic;
   color: red;
   font-size:20px;

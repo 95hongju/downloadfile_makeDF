@@ -23,7 +23,7 @@ def update_log():
         #end program
         print(' There are No LOG FILE ! ')
         sys.exit()
-    
+
 
     if size == 0:
         #no data in logfile
@@ -49,7 +49,7 @@ def update_log():
             print(' - D O N E ! - ')
         except:
             print('error T-T')
-    
+
     #print current time
     localtime = time.asctime(time.localtime(time.time()))
     print('Date : ' + localtime)

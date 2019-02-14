@@ -1,48 +1,48 @@
-.addd {
-  border:1;
-  text-align: center;
-  height: 20px;
+table {
+  font-size: 12pt;
+  border: 3px lightgray solid;
+  border-radius: 15px;
+  padding-right: 10px;
+  padding-left: 10px;
+}
+body{
+  font-size: 150%;
 }
 
 .btn{
-  background: lightgray;
   padding: 4px 0;
   left: 50%;
   top: 50%;
   border-radius: 3px;
 }
-.img{
-  background: url("logo.png");
-  background-position: center center;
-  background-size:cover;
-}
-
-input {
-  text-align: center;
-}
-.result{
+#title {
+  font-family: "Arial Black", Gadget, sans-serif;
+  font-size: 25px;
+  letter-spacing: 2px;
+  word-spacing: 2px;
+  color: #000000;
+  font-weight: 700;
+  text-decoration: none;
   font-style: italic;
-  font-size: 15px;
-  color:gray;
-}
-.smallsize{
-  width:70px;
-}
-.bigsize{
-  width:140px;
-}
+  font-variant: normal;
+  text-transform: none;
+  }
+
 input[type=text] {
+  text-align: center;
   border: 2px solid orange;
   border-radius: 4px;
   height:30px;
 }
 
 input[type=submit] {
+  background: rgb(230, 230, 230);
   border: 2px solid orange;
   height: 30px;
   border-radius: 4px;
 }
 input[type=button] {
+  background: rgb(230, 230, 230);
   border: 2px solid orange;
   border-radius: 4px;
   height:30px;

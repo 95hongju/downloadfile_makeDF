@@ -1,60 +1,108 @@
 <head>
   <title>
+    Home/rsID-Postion Map
   </title>
 </head>
 
 <body>
-  <table style='border:2px solid lightgray; border-radius:5px' align=center>
-    <tr>
-      <td colspan=8 class='img' width=500 height=100>
 
-      </td>
-    </tr>
-      <tr align='right'>
-        <td colspan=8 style="font-size:80%">
-          {% if currUsingFile %}
-          latest update : {{ currUsingFile.down_date.date }}
-          {% else %}
-          nothing to show(ask to hongju)
-          {% endif %}
-        </td>
+  <input type=button value="HOME 🏠" style="width:130px;" onclick="window.location.href='http://127.0.0.1:8000'" />
+  <br>
+  <div align=center style="color:gray; font-size:70% ">
+      {% if currUsingFile %}
+      latest update : {{currUsingFile.down_date.date }}&nbsp; &nbsp;
+      database : {{currUsingFile.file_name }}&nbsp; &nbsp;
+      {% else %}
+      nothing to show(ask to hongju) &nbsp; &nbsp;
+      {% endif %}
+    </div>
+    <br>
+  <table align='center'>
+      <tr>
+          <td colspan=8 id='title'  width=500 height=100>
+              🕵️‍ rsID
+          </td>
+        </tr>
 
-      </tr>
+    </form>
     <form method="POST" action="{% url 'search:searchRS' %}">
       {% csrf_token %}
       <tr align=center>
         <td colspan=8>
-          <input type=text placeholder="search RSID" name='srchkeyword' style="width:92%;" />
+          <input type=text placeholder="search rsID" name='srchkeyword' style="width:92%;" />
           <input type='submit' value="🔍" title='search' />
         </td>
       </tr>
     </form>
-      <form method="POST" enctype="multipart/form-data" action="{% url 'search:upload' %}">
+    <form method="POST" enctype="multipart/form-data" action="{% url 'search:uploadRS' %}">
       {% csrf_token %}
       <tr align=center>
         <td colspan=8>
-          <a href="{% url 'search:file_download' %}"><input type='button' value='example' title='sample file download'></a>
-          <input type="file" name="file" id="id_file" style="width:70%" />
-          <input type="submit" value="UPLOAD" title='upload and search' class='btn' />
+          <input type="file" name="file" id="id_file" style="width:73%" />
+          <input type="submit" value="FILE UPLOAD" title='upload and search' class='btn' style="width:20%" />
         </td>
       </tr>
     </form>
+
+
+  </table>
+  <br>
+  {% comment %}
+  table 2 start -------------------------------------------------
+  input -> POS and CHROM
+  output -> rsID
+  ---------------------------------------------------------------
+
+  {% endcomment %}
+  <table align='center'>
     <tr>
-      <td colspan=8 align=center>
-        <br>
-
-          {% if messages %}
-
-             {% for message in messages %}
-             <h4 style='color:#ff5733'>{{ message }}
-             {% endfor %}
-         {% else %}
-           <h4 style='color:darkorange'> only [ .txt ] files avaliable !
-          {% endif %}
-        </h4>
+      <td colspan=8 id='title'  width=500 height=100>
+          🕵️‍ CHR / POS
       </td>
     </tr>
+
+    </form>
+    <form method="POST" action="{% url 'search:searchPC' %}">
+      {% csrf_token %}
+      <tr align=center>
+        <td colspan=8>
+          <input type=text placeholder="input CHR" name='srchCHR' style="width:20%;" />
+          <input type=text placeholder="input POS" name='srchPOS' style="width:50%;" />
+          <input type='submit' value="🔍" title='search' />
+        </td>
+      </tr>
+    </form>
+    <form method="POST" enctype="multipart/form-data" action="{% url 'search:uploadPC' %}">
+      {% csrf_token %}
+      <tr align=center>
+        <td colspan=8>
+          <input type="file" name="file" id="id_file" style="width:73%" />
+          <input type="submit" value="FILE UPLOAD" title='upload and search' class='btn' style="width:20%" />
+        </td>
+      </tr>
+    </form>
+
   </table>
+  <br>
+  {# message table #}
+  <div align=center>
+    {% for message in messages %}
+    <h4 style='color:#ff5733'>📢 {{ message }} 📢
+      {% empty %}
+      <h4 style='color:darkorange'> 📢 only [ .csv ] files avaliable ! 📢
+        {% endfor %}
+      </h4>
+      <div>
+        <a href="{% url 'search:file_downloadRS' %}"><input type='button' value='example(rsID) download' title='sample(rsID) file download'></a>
+        <a href="{% url 'search:file_downloadPC' %}"><input type='button' value='example(CHR/POS) download' title='sample(CHR/POS) file download'></a>
+        <button onclick="window.open('usage')" style="  background: rgb(230, 230, 230);
+            text-align: center;
+                border: 2px solid red;
+                border-radius: 4px;
+                height:30px;">💢 rsID-Position Map Usage 💢</button>
+      </div>
+
+  </div>
 
 </body>
 

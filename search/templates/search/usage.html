@@ -1,0 +1,72 @@
+<title>
+    Home/rsID-Position Map/Usage
+</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.95.3/js/materialize.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.95.3/css/materialize.min.css" rel="stylesheet" />
+<br>
+<div id='title'>
+    ☝️ rsID-Position Map Usage
+</div>
+<div>
+    <ul class="collapsible" data-collapsible="accordion">
+        <li>
+            <div class="collapsible-header"><i class="mdi-navigation-chevron-right"></i> Search </div>
+            <div class="collapsible-body">
+                <p>
+                    - rsID - <br>
+                    1. Enter rsID you are looking for. <br>
+                    2. Click the 🔍(search) button. <br>
+                    3. Check the result.
+                    <p id='img' class='search_rs'></p>
+
+                    - CHR / POS - <br>
+                    1. Enter CHR/POS you are looking for. (or just enter POS)<br>
+                    2. Click the 🔍(search) button. <br>
+                    3. Check the result.
+                    <p id='img' class='search_pc'></p>
+
+                    * POS value is required. CHR is optional.
+                    <p id='img' class='search_pc1'></p>
+                </p>
+            </div>
+        </li>
+
+        <li>
+            <div class="collapsible-header"><i class="mdi-navigation-chevron-right"></i> File Upload </div>
+            <div class="collapsible-body">
+                <p>
+                    - rsID - <br>
+                    1. Download & open the example file. <br>
+                    2. Delete the test data & enter the REAL data. (DO NOT DELETE COLUMN NAMES.)<br>
+                    3. Save the file.(delimeter is 'tab'.) <br>
+                    4. Choose the file and click the 'FILE UPLOAD' button.
+                    <p id='img' class='file_rs'></p>
+
+                    - CHR / POS - <br>
+                    1. Download & open the example file. <br>
+                    2. Delete the test data & enter the REAL data. (DO NOT DELETE COLUMN NAMES.)<br>
+                    3. Save the file.(delimeter is 'tab'.) <br>
+                    4. Choose the file and click the 'FILE UPLOAD' button.
+                    <p id='img' class='file_pc'></p>
+
+                </p>
+            </div>
+        </li>
+        <li>
+
+            <div class="collapsible-header"><i class="mdi-navigation-chevron-right"></i> Download report </div>
+            <div class="collapsible-body">
+                    <p>
+                         You can download the results.
+                         Click the 'csv download' button at the bottom of the result.
+                         <p id='img' class='report'></p>
+        
+                        </p>
+            </div>
+        </li>
+    </ul>
+</div>
+
+{% load static %}
+<link rel='stylesheet' type='text/css' href="{% static 'search/usage.css' %}" />

@@ -14,7 +14,7 @@ class Blacks(models.Model):
     ver = models.ForeignKey(Version, on_delete = models.CASCADE)
     chr = models.CharField(max_length = 20)
     pos = models.CharField(max_length = 20)
-    rsid = models.CharField(max_length = 30)
+    rsid = models.CharField(max_length = 50)
     reason = models.CharField(max_length = 30)
     who = models.CharField(max_length = 30)
     date = models.DateTimeField(auto_now_add=True)

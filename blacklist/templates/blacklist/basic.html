@@ -6,12 +6,26 @@
 </head>
 
 <body>
-  <input type=button value="HOME 🏠" style="width:130px;" onclick="window.location.href='http://10.33.2.222:8080'" />
-  <br><br>
+  <input type=button value="HOME 🏠" style="width:130px;" onclick="window.location.href='http://127.0.0.1:8000'" />
+  <br>
   <table align=center width=800 border=0>
     <tr>
+      <td colspan=2 align=right>
+        {% for message in messages %}
+        <label class="messages1">
+          &nbsp;📢 {{ message }} 📢
+        </label>
+        {% empty %}
+        <label class="messages">
+          &nbsp;📢 only [ .csv ] files avaliable for file upload! 📢
+        </label>
+        {% endfor %}<br><br><br>
+
+      </td>
+    </tr>
+    <tr>
       <td colspan=2 id=title>
-        🦇 BLACK-LIST
+        👤 Low Quality Marker
       </td>
     </tr>
     {# ---------------------------------------------------------------- #}
@@ -37,114 +51,148 @@
     </tr>
 
     <tr>
-      <td id='point'>new data </td>
-      <td>
-        <table>
-          <tr align=center class="addd">
-            <td id='s'> CHR  </td>
-            <td id='m'> POS  </td>
-            <td id='l'> rsID  </td>
-            <td id='l'> Reason  </td>
-            <td id='m'> Who  </td>
-            <td> </td>
-          </tr>
-          <form method="POST" action="{% url 'blacklist:add_new' %}">
-            {% csrf_token %}
-            <tr align=center class="addd">
-              <td><input type='text' id='s' name='chr' /></td>
-              <td><input type='text' id='m' name='pos' /></td>
-              <td><input type='text' id='l' name='rsid' /></td>
-              <td><input type='text' id='l' name='reason' /></td>
-              <td><input type='text' id='m' name='who' /></td>
-              <td><input type='submit' value=' ADD ' title='add new data' style="width:100%; font-size:100%;" class='btn' /></a>
-              </td>
-            </tr>
-          </form>
+     <td id='point'>new data </td>
+     <td>
+       <table>
+         <tr align=center class="addd">
+           <td id='s'> CHR </td>
+           <td id='m'> POS </td>
+           <td id='l'> rsID </td>
+           <td id='l'> Reason </td>
+           <td id='m'> Registered by </td>
+           <td> </td>
+         </tr>
+         <form method="POST" action="{% url 'blacklist:add_new' %}">
+           {% csrf_token %}
+           <tr align=center class="addd">
+             <td><input type='text' id='s' name='chr' /></td>
+             <td><input type='text' id='m' name='pos' /></td>
+             <td><input type='text' id='l' name='rsid' /></td>
+             <td><input type='text' id='l' name='reason' /></td>
+             <td><input type='text' id='m' name='who' /></td>
+             <td><input type='submit' value=' ADD ' title='add new data' style="width:100%; font-size:100%;"
+                 class='btn' /></a>
+             </td>
+           </tr>
+         </form>
 
-        </table>
-      </td></tr>
-
-
-      {# ---------------------------------------------------------------- #}
-      {# search #}
-      {# ---------------------------------------------------------------- #}
-
-      <tr>
-        <form action="{% url 'blacklist:search' %}" method='POST'>
-          <td id='point'>
-            search
-          </td>
-          <td>&nbsp;
-            <select name='option_name' class='srch'>
-              <option value="CHR"> CHR</option>
-              <option value="POS"> POS</option>
-              <option value="rsID"> rsID</option>
-              <option value="WHO"> WHO</option>
-            </select>
-            {% csrf_token %}
-            <input type=text placeholder="search" name='searchword' style="width:60%;" />
-            <input type='submit' title='search' value="🔍" style="font-size:100%;" />
-
-          </td>
-        </form>
-      </tr>
-      <tr>
-        <td colspan=2 id='result'> {{srh}} &nbsp;</td>
-      </tr>
+       </table>
+     </td>
+   </tr>
 
 
-      <tr style="font-size:90%; font-style:bold" align=center>
-        <td colspan=2 >
-          {% block values %}
+   {# ---------------------------------------------------------------- #}
+   {# search #}
+   {# ---------------------------------------------------------------- #}
 
-          {% endblock %}
-        </td>
-      </tr>
+   <tr>
+     <form action="{% url 'blacklist:search' %}" method='POST'>
+       <td id='point'>
+         search
+       </td>
+       <td>&nbsp;
+         <select name='option_name' class='srch'>
+           <option value="CHR"> CHR</option>
+           <option value="POS"> POS</option>
+           <option value="rsID"> rsID</option>
+           <option value="WHO"> Registered by</option>
+         </select>
+         {% csrf_token %}
+         <input type=text placeholder="search" name='searchword' style="width:60%;" />
+         <input type='submit' title='search' value="🔍" style="font-size:100%;" />
 
-
-      {# ---------------------------------------------------------------- #}
-      {# about files #}
-      {# ---------------------------------------------------------------- #}
-
-      <form method="POST" enctype="multipart/form-data" action="{% url 'blacklist:upload' %}">
-        {% csrf_token %}
-        <tr>
-          <td id='point'> file upload </td>
-          <td>
-            <input type="file" name="file" id="id_file" style="width:72%" />
-            <input type="submit" value=" FILE UPLOAD " class='btn' style="font-size:100%; width:26%" />
-
-            <a href="{% url 'blacklist:file_download' %}"><input type='button' value="example download" title='sample file download'></a>
-            <input type='button' value='fileupload help...mouseover' title = '1) download example file. 2) open the file and delete test data(not column name), and input data what you want.only rsID can have blank, null, empty data. or it will occur error. 3) after you entering the data, delimeter is tab, save it as csv file. 4) click browse button and choose the csv file what you made just before. 5) check the current version of database and click fileupload button on the right side. 6) if something wrong, message will appear at the bottom of this button'  />
-          </td>
-        </tr>
-        <tr>
-          <td id='point'>
-            message
-          </td>
-          <td>
-
-            <br>
-            {% for message in messages %}
-            <label class="messages1">
-              &nbsp; {{ message }}
-            </label>
-            {% empty %}
-            <label class="messages">
-              &nbsp; only [ .txt ] files avaliable for file upload!
-            </label>
-          </td>
+       </td>
+     </form>
+   </tr>
+   <tr>
+     <td colspan=2 id='result'> {{srh}} &nbsp;</td>
+   </tr>
 
 
-          {% endfor %}
-        </td>
-      </tr>
-    </form>
-  </table>
+   <tr style="font-size:90%; font-style:bold" align=center>
+     <td colspan=2>
+       {% block values %}
+
+       {% endblock %}
+       <input type=button onclick="exportTableToCSV('result(low_quality_marker).csv')" value='TABLE DOWNLOAD' style="width:20%;"></button>
+
+     </td>
+   </tr>
 
 
-  {% load static %}
-  <link rel="stylesheet" type="text/css" href="{% static 'blacklist/style.css' %}" />
+   {# ---------------------------------------------------------------- #}
+   {# about files #}
+   {# ---------------------------------------------------------------- #}
+
+   <form method="POST" enctype="multipart/form-data" action="{% url 'blacklist:upload' %}">
+     {% csrf_token %}
+     <tr>
+       <td id='point'> file upload </td>
+       <td>
+         <input type="file" name="file" id="id_file" style="width:72%" />
+         <input type="submit" value=" FILE UPLOAD " class='btn' style="font-size:100%; width:26%" />
+
+         <a href="{% url 'blacklist:file_download' %}"><input type='button' value="example download"
+             title='sample file download'></a>
+           <button onclick="window.open('usage')" style="  background: rgb(230, 230, 230);
+           text-align: center;
+               border: 2px solid red;
+               border-radius: 4px;
+               height:30px;">💢 Low Quality Marker Usage 💢</button>
+         </td>
+     </tr>
+
+   </form>
+ </table>
+
+
+ {% load static %}
+ <link rel="stylesheet" type="text/css" href="{% static 'blacklist/style.css' %}" />
 </body>
 
 </html>
+
+<script>
+function downloadCSV(csv, filename) {
+  var csvFile;
+  var downloadLink;
+
+  // CSV file
+  csvFile = new Blob([csv], {type: "text/csv"});
+
+  // Download link
+  downloadLink = document.createElement("a");
+
+  // File name
+  downloadLink.download = filename;
+
+  // Create a link to the file
+  downloadLink.href = window.URL.createObjectURL(csvFile);
+
+  // Hide download link
+  downloadLink.style.display = "none";
+
+  // Add the link to DOM
+  document.body.appendChild(downloadLink);
+
+  // Click download link
+  downloadLink.click();
+}
+
+function exportTableToCSV(filename) {
+  var csv = [];
+  var rows = document.querySelectorAll("table tr");
+
+  for (var i = 0; i < rows.length; i++) {
+    var tb=rows[i].querySelectorAll("table");
+    if( tb.length !== 0){
+        continue;
+    }
+    txt = rows[i].innerText
+    csv.push(txt);
+  }
+
+  // Download CSV file
+  downloadCSV(csv.join("\n"), filename);
+}
+</script>

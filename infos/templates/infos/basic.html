@@ -1,15 +1,33 @@
 <!DOCTYPE html>
 <html>
-
+<title>
+  Home/Sample Inventory
+</title>
 <head>
   <meta charset="UTF-8">
 </head>
 
 <body>
-  <input type=button value="HOME 🏠" style="width:130px;" onclick="window.location.href='http://10.33.2.222:8080'" />
+  <input type=button value="HOME 🏠" style="width:130px;" onclick="window.location.href='http://127.0.0.1:8000'" />
   <table align=center width=600>
-    <tr align=center>
-      <td colspan=6 class='img' height=160>
+    <tr>
+      <td colspan=6 align=right>
+        {% for message in messages %}
+        <label class="messages1">
+          &nbsp;📢 {{ message }} 📢
+        </label>
+        {% empty %}
+        <label class="messages">
+          &nbsp;📢 only [ .csv ] files avaliable for file upload! 📢
+        </label>
+        {% endfor %}<br><br>
+
+      </td>
+    </tr>
+    <tr>
+      <td colspan=6 id=title>
+        👩🏻‍🔬 Sample Inventory
+        <br><br>
         <br>
       </td>
     </tr>
@@ -38,12 +56,14 @@
     <tr>
       <td colspan=6><br></td>
     </tr>
-    
+
     <tr style="font-size:90%; font-style:bold" align=center>
-        <td colspan=6>
-            {% block values %}
+      <td colspan=6>
+        {% block values %}
 
         {% endblock %}
+        <input type=button onclick="exportTableToCSV('result(sample_inventory).csv')" value='TABLE DOWNLOAD' style="width:20%;"></button>
+
       </td>
 
     <tr>
@@ -55,11 +75,11 @@
     <form method="POST" action="{% url 'infos:add_new' %}">
       {% csrf_token %}
       <tr align=center class="addd">
-        <td><input type='text' class="smallsize" name='rack_num' placeholder="rack" /></td>
-        <td><input type='text' class="smallsize" name='box_num' placeholder="box" /></td>
-        <td><input type='text' class="bigsize" name='barcode_num' placeholder="barcode" /></td>
-        <td><input type='text' class="smallsize" name='well_num' placeholder="well" /></td>
-        <td><input type='text' class="smallsize" name='freezer_num' placeholder="freezer" /></td>
+        <td><input type='text' id="s" name='rack_num' placeholder="rack" /></td>
+        <td><input type='text' id="l" name='box_num' placeholder="box" /></td>
+        <td><input type='text' id="l" name='barcode_num' placeholder="barcode" /></td>
+        <td><input type='text' id="m" name='well_num' placeholder="well" /></td>
+        <td><input type='text' id="xl" name='freezer_num' placeholder="freezer" /></td>
         <td><input type='submit' value=" ADD " title='add data' style="width:100%; font-size:100%;" class='btn' /></a>
         </td>
       </tr>
@@ -75,33 +95,66 @@
       </tr>
       <tr>
         <td colspan=6 align=left>
-          <a href="{% url 'infos:file_download' %}"><input type='button' value="example download" title='sample file download'></a>
+          <a href="{% url 'infos:file_download' %}"><input type='button' value="example download"
+              title='sample file download'></a>
+        <button onclick="window.open('usage')" style="  background: rgb(230, 230, 230);
+            text-align: center;
+                border: 2px solid red;
+                border-radius: 4px;
+                height:30px;">💢 Sample Inventory Usage 💢</button>
         </td>
       </tr>
-      <tr>
-        <td colspan=6 align=center>
 
-
-          <br>
-          {% for message in messages %}
-            <ul class="messages1">
-            <li>{{ message }}</li>
-          </ul>
-            {% empty %}
-            <ul class="messages">
-              <li> only [ .txt ] files avaliable !</li>
-            </ul>
-
-
-            {% endfor %}
-        </td>
-      </tr>
     </form>
   </table>
 
 
   {% load static %}
-  <link rel="stylesheet" type="text/css" href="{% static 'infos/style.css' %}" />
-</body>
-
+  <link rel="stylesheet" type="text/css" href="{% static 'blacklist/style.css' %}" />
+  </body>
 </html>
+
+<script>
+function downloadCSV(csv, filename) {
+  var csvFile;
+  var downloadLink;
+
+  // CSV file
+  csvFile = new Blob([csv], {type: "text/csv"});
+
+  // Download link
+  downloadLink = document.createElement("a");
+
+  // File name
+  downloadLink.download = filename;
+
+  // Create a link to the file
+  downloadLink.href = window.URL.createObjectURL(csvFile);
+
+  // Hide download link
+  downloadLink.style.display = "none";
+
+  // Add the link to DOM
+  document.body.appendChild(downloadLink);
+
+  // Click download link
+  downloadLink.click();
+}
+
+function exportTableToCSV(filename) {
+  var csv = [];
+  var rows = document.querySelectorAll("table tr");
+
+  for (var i = 0; i < rows.length; i++) {
+    var tb=rows[i].querySelectorAll("table");
+    if( tb.length !== 0){
+        continue;
+    }
+    txt = rows[i].innerText
+    csv.push(txt);
+  }
+
+  // Download CSV file
+  downloadCSV(csv.join("\n"), filename);
+}
+</script>

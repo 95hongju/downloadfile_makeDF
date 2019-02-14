@@ -15,4 +15,5 @@ urlpatterns=[
     url(r'^(?P<id>[0-9]+)/edit_done/$',views.edit_done,name='edit_done'),
     url(r'^file_download/$',views.file_download,name='file_download'),
     url(r'^upload/$',views.upload,name='upload'),
+    url(r'^usage/$',views.usage,name='usage'),
 ]
