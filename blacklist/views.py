@@ -6,21 +6,35 @@ from io import StringIO
 import pandas as pd
 import os
 
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 from .models import Version, Blacks
 from .forms import inputForm
 
 
 #default version
 version = 'GSAv1.2'
+search_dic = {'option_name': '', 'search_keyword':''}
 
 
 def index(request):
-    global version
-    curr_ver = Version.objects.get(version_name=version)
-    blacks = curr_ver.blacks_set.all()
-    context = {'version': version, 'result':blacks}
-    return render(request, 'blacklist/index.html', context)
+    global version, search_dic
+    if search_dic['search_keyword'] != '':
+        return HttpResponseRedirect(reverse('blacklist:search'))
+    else:
+        curr_ver = Version.objects.get(version_name=version)
+        blacks = curr_ver.blacks_set.all()
+        page = request.GET.get('page', 1)
 
+        paginator = Paginator(blacks, 20)
+        try:
+            users = paginator.page(page)
+        except PageNotAnInteger:
+            users = paginator.page(1)
+        except EmptyPage:
+            users = paginator.page(paginator.num_pages)
+        context = {'version': version, 'result':users}
+        return render(request, 'blacklist/index.html', context)
 
 # ---------------------------------------
 # change version
@@ -68,69 +82,88 @@ def remove(request, id):
 # ---------------------------------------
 # database edit
 # ---------------------------------------
-def edit(request,id):
-    try:
-        global version
-        blk = Blacks.objects.get(pk=id)
-        q = Version.objects.get(version_name=version)
-        blk_list = q.blacks_set.all()
-        context ={'blk_list':blk_list,'blk':blk,'version':version}
-        return render(request,'blacklist/edit.html',context)
-    except:
-        messages.info(request, 'error : invalid pkID')
-        return HttpResponseRedirect(reverse('blacklist:index'))
+
+def detail(request, id):
+    global version
+    blk = Blacks.objects.get(pk=id)
+    context = {'result':blk ,'version':version}
+    return render(request, 'blacklist/detail.html',context)
+
 
 
 def edit_done(request,id):
-    try:
-        blk = Blacks.objects.get(pk=id)
-        f=inputForm(request.POST)
-        if f.is_valid():
-            if request.POST['rsid']== '':
-                blk.rsid='N/A'
-            else:
-                blk.rsid = request.POST['rsid']
-            blk.chr = request.POST['chr']
-            blk.pos = request.POST['pos']
-            blk.reason = request.POST['reason']
-            blk.who = request.POST['who']
+    blk = Blacks.objects.get(pk=id)
+    f=inputForm(request.POST)
+    if f.is_valid():
 
-            blk.save()
-            messages.info(request, 'edit done ! ')
-            return HttpResponseRedirect(reverse('blacklist:index'))
-        else:
-            print(request.POST)
-            print("error")
-            messages.info(request, 'blank not allowed(except rsID)... check the edit data')
-            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-    except:
-        messages.info(request, 'error : invalid pkID')
-        return HttpResponseRedirect(reverse('blacklist:index'))
+        r_chr = request.POST['chr']
+        r_pos = request.POST['pos']
+        r_rsid = request.POST['rsid']
+        if(r_rsid ==''):
+            r_rsid='N/A'
+        r_reason = request.POST['reason']
+        r_who = request.POST['who']
+
+        blk.chr = r_chr
+        blk.pos = r_pos
+        blk.rsid = r_rsid
+        blk.reason = r_reason
+        blk.who = r_who
+        blk.save()
+
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    else:
+        r_chr = request.POST['chr']
+        r_pos = request.POST['pos']
+        r_rsid = request.POST['rsid']
+        r_reason = request.POST['reason']
+        r_who = request.POST['who']
+        print(str(r_chr)+'/'+str(r_pos)+'/'+str(r_rsid)+'/'+str(r_reason)+'/'+str(r_who)+'/')
+        messages.info(request, 'blank not allowed.. check the input data')
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
 
 
 # ---------------------------------------
 # search data in database
 # ---------------------------------------
+
+def search_btn(request):
+    global search_dic
+    search_dic['option_name'] = request.POST['option_name']
+    search_dic['search_keyword'] = request.POST['searchword']
+    return HttpResponseRedirect(reverse('blacklist:search'))
+
+
 def search(request):
-    global version
-    #select box value
-    option_name=request.POST['option_name']
-    search_keyword=request.POST['searchword']
+    global version, search
+
     #get keyword -> make list with result objects
-    if search_keyword=='':
-        q = Version.objects.get(version_name= version)
-        c = q.blacks_set.all()
-        context={'version':version, 'result' : c}
+    if search_dic['search_keyword'] == '':
+        return HttpResponseRedirect(reverse('blacklist:index'))
     else:
-        blk_list=search_result(option_name, search_keyword, version)
-        srh="results '"+search_keyword + "' in "+option_name+'('+version+')'
-        context={'result': blk_list,'srh':srh, 'version':version}
+        blk_list=search_result()
+        srh="results '" + search_dic['search_keyword'] + "' in "+ search_dic['option_name'] + '('+version+')'
+
+        page = request.GET.get('page',1)
+        paginator = Paginator(blk_list, 10)
+        try:
+            users = paginator.page(page)
+        except PageNotAnInteger:
+            users = paginator.page(1)
+        except EmptyPage:
+            users = paginator.page(paginator.num_pages)
+
+        context={'result': users,'srh':srh, 'version':version}
     return render(request,'blacklist/index.html',context)
 
 
 #each option name (html->combobox data) have different filter parameter
-def search_result(option_name, search_keyword,version):
+def search_result():
+    global search_dic, version
     q = Version.objects.get(version_name=version)
+    option_name = search_dic['option_name']
+    search_keyword = search_dic['search_keyword']
 
     if option_name == 'CHR':
         return q.blacks_set.filter(chr__contains=search_keyword)

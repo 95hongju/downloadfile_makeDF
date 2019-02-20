@@ -35,16 +35,26 @@
       <form method="POST" enctype="multipart/form-data" action="{% url 'blacklist:move_version' %}">
         {% csrf_token %}
         <td colspan=2>
-          <br><br>
-          <p class='messages1'> current : {{version}} &nbsp;  </p>
+
+          <p class='messages2'> current : {{version}} &nbsp; </p>
           <div align=right>
             Version :
             <select name='version_name' style="width:250px">
-              <option value="GSAv1.2"> GSAv1.2</option>
+              {% if version == "GSAv1.2" %}
+              <option selected value="GSAv1.2"> GSAv1.2</option>
               <option value="GSAMDv2.1"> GSAMDv2.1</option>
               <option value="GSAMDv2.2"> GSAMDv2.2</option>
+              {% elif version == "GSAMDv2.1" %}
+              <option value="GSAv1.2"> GSAv1.2</option>
+              <option selected value="GSAMDv2.1"> GSAMDv2.1</option>
+              <option value="GSAMDv2.2"> GSAMDv2.2</option>
+              {% else %}
+              <option value="GSAv1.2"> GSAv1.2</option>
+              <option value="GSAMDv2.1"> GSAMDv2.1</option>
+              <option selected value="GSAMDv2.2"> GSAMDv2.2</option>
+              {% endif %}
             </select>
-            <input type="submit" value = ' GO ' title="change version"/>
+            <input type="submit" value=' GO ' title="change version" />
           </div>
         </td>
       </form>
@@ -86,7 +96,7 @@
    {# ---------------------------------------------------------------- #}
 
    <tr>
-     <form action="{% url 'blacklist:search' %}" method='POST'>
+     <form action="{% url 'blacklist:search_btn' %}" method='POST'>
        <td id='point'>
          search
        </td>
@@ -114,6 +124,9 @@
        {% block values %}
 
        {% endblock %}
+     </td>
+   </tr>
+   <tr> <td colspan=2>
        <input type=button onclick="exportTableToCSV('result(low_quality_marker).csv')" value='TABLE DOWNLOAD' style="width:20%;"></button>
 
      </td>

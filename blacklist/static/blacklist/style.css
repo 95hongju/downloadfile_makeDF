@@ -9,14 +9,14 @@
   font-style: italic;
   font-variant: normal;
   text-transform: none;
-  }
-  #point{
-    text-align: center;
-    border: 2px solid gray;
-    border-radius:20px;
-    height:70px;
-    width:80px;
-  }
+}
+#point{
+  text-align: center;
+  border: 2px solid gray;
+  border-radius:20px;
+  height:70px;
+  width:80px;
+}
 .fixed_header{
   width: 700px;
   table-layout: fixed;
@@ -24,27 +24,27 @@
 }
 
 .fixed_header tbody{
-display:block;
-width: 100%;
-overflow: auto;
-height: 400px;
+  display:block;
+  width: 100%;
+  overflow: auto;
+  height: 400px;
 }
 
 .fixed_header thead tr {
- display: block;
+  display: block;
 }
 .fixed_header tr:hover td{
   background-color : lightgrey;
 }
 
 .fixed_header thead {
-background: orange;
+  background: orange;
 }
 
 .fixed_header th, .fixed_header td {
-padding: 5px;
-text-align: center;
-width: 200px;
+  padding: 5px;
+  text-align: center;
+  width: 200px;
 }
 
 .addd {
@@ -61,9 +61,9 @@ table{
   padding-left: 10px;
 }
 table tr.row td{
-   border: 2px solid orange;
-   border-radius: 10px;
-    text-align: center;
+  border: 2px solid orange;
+  border-radius: 10px;
+  text-align: center;
 }
 .btn{
   background: lightgray;
@@ -72,7 +72,7 @@ table tr.row td{
   left: 50%;
   top: 50%;
   border-radius: 3px;
-    font-size:15px;
+  font-size:15px;
 }
 
 
@@ -87,8 +87,8 @@ table tr.row td{
   font-size:14px;
 }
 #m{
- width:90px;
- font-size:14px;
+  width:90px;
+  font-size:14px;
 }
 #l{
   width:160px;
@@ -99,26 +99,28 @@ table tr.row td{
   font-size:14px;
 }
 input[type=text] {
-text-align: center;
-    border: 2px solid orange;
-    border-radius: 4px;
-    height:30px;
+  text-align: center;
+  border: 2px solid orange;
+  border-radius: 4px;
+  height:30px;
 }
 
 input[type=submit] {
   background: rgb(230, 230, 230);
-text-align: center;
-    border: 2px solid orange;
-    height: 30px;
-    border-radius: 4px;
+  text-align: center;
+  border: 2px solid orange;
+  height: 30px;
+  border-radius: 4px;
 
 }
+
+
 input[type=button] {
   background: rgb(230, 230, 230);
-text-align: center;
-    border: 2px solid orange;
-    border-radius: 4px;
-    height:30px;
+  text-align: center;
+  border: 2px solid orange;
+  border-radius: 4px;
+  height:30px;
 }
 .srch{
   height:30px;
@@ -130,7 +132,7 @@ text-align: center;
   color: darkorange;
   font-size:17px;
   font-weight: bold;
-  
+
 
 
 }

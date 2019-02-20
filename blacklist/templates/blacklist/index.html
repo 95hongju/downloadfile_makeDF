@@ -1,5 +1,30 @@
-{% extends "blacklist/basic.html" %}
 
+<style>
+
+  .pagination {
+    display: inline-block;
+  }
+
+  .pagination a {
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+  }
+
+  .pagination a.active {
+    background-color: orange;
+    color: white;
+    border-radius: 5px;
+  }
+
+  .pagination a:hover:not(.active) {
+    background-color: #ddd;
+    border-radius: 5px;
+  }
+
+</style>
+{% extends "blacklist/basic.html" %}
 {% block values %}
 
 <table border=0 align=center  style="font-size: 12pt;
@@ -39,8 +64,7 @@ padding-left: 10px;" class="fixed_header">
     <td id='xl'>{{ v.who }}</td>
     <td id='m'>{{ v.date.date }}</td>
     <td id='xl'>
-      <a href="{% url 'blacklist:edit' v.id %}"><input type='button' value="✏️" title='edit' style="font-size:100%;" /></a>
-      <a href="{% url 'blacklist:remove' v.id %}"><input type='button' value="❌" title='remove' style="font-size:100%;" /></a>
+      <a href="{% url 'blacklist:detail' v.id %}"><input type='button' value="✏️ / ❌" title='edit' style="font-size:100%;" /></a>
 
     </td>
   </tr>
@@ -53,4 +77,33 @@ padding-left: 10px;" class="fixed_header">
   {% endif %}
 </tbody>
 </table>
+
+
+
+{# --------------------------------------------------------------------- #}
+{#  pagination  & CSS  #}
+{# --------------------------------------------------------------------- #}
+
+{% if result.has_other_pages %}
+<div class="pagination">
+  {% if result.has_previous %}
+  <a href="?page=1">First</a>
+  <a href="?page={{ result.previous_page_number }}">Previous</a>
+  {% endif %}
+
+  {% for num in result.paginator.page_range %}
+  {% if result.number == num %}
+  <a class="active" href="?page={{ num }}">{{ num }}</a>
+  {% elif num > result.number|add:'-3' and num < result.number|add:'3' %}
+  <a href="?page={{ num }}">{{ num }}</a>
+  {% endif %}
+  {% endfor %}
+
+  {% if result.has_next %}
+  <a href="?page={{ result.next_page_number }}">Next</a>
+  <a href="?page={{ result.paginator.num_pages }}">Last</a>
+  {% endif %}
+</div>
+{% endif %}
+<br>
 {% endblock %}
