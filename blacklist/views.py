@@ -19,6 +19,7 @@ search_dic = {'option_name': '', 'search_keyword':''}
 
 def index(request):
     global version, search_dic
+        # if there is an exist search keyword, show search result page
     if search_dic['search_keyword'] != '':
         return HttpResponseRedirect(reverse('blacklist:search'))
     else:
@@ -28,19 +29,21 @@ def index(request):
 
         paginator = Paginator(blacks, 20)
         try:
-            users = paginator.page(page)
+            value = paginator.page(page)
         except PageNotAnInteger:
-            users = paginator.page(1)
+            value = paginator.page(1)
         except EmptyPage:
-            users = paginator.page(paginator.num_pages)
-        context = {'version': version, 'result':users}
+            value = paginator.page(paginator.num_pages)
+        context = {'version': version, 'result':value}
         return render(request, 'blacklist/index.html', context)
 
 # ---------------------------------------
 # change version
 # ---------------------------------------
 def move_version(request):
-    global version
+    global version, search_dic
+    search_dic['option_name'] = ''
+    search_dic['search_keyword'] = ''
     des_ver = request.POST['version_name']
     version = des_ver
     return HttpResponseRedirect(reverse('blacklist:index'))
@@ -110,15 +113,10 @@ def edit_done(request,id):
         blk.reason = r_reason
         blk.who = r_who
         blk.save()
+        messages.info(request, 'edit done ! ')
 
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
     else:
-        r_chr = request.POST['chr']
-        r_pos = request.POST['pos']
-        r_rsid = request.POST['rsid']
-        r_reason = request.POST['reason']
-        r_who = request.POST['who']
-        print(str(r_chr)+'/'+str(r_pos)+'/'+str(r_rsid)+'/'+str(r_reason)+'/'+str(r_who)+'/')
         messages.info(request, 'blank not allowed.. check the input data')
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
@@ -136,7 +134,7 @@ def search_btn(request):
 
 
 def search(request):
-    global version, search
+    global version, search_dic
 
     #get keyword -> make list with result objects
     if search_dic['search_keyword'] == '':
@@ -183,7 +181,7 @@ def search_result():
 def file_download(request):
     f=str(os.getcwd())+'/examples/example_blacklist.csv'
     response = HttpResponse(open(f,'rb'), content_type='application/vnd.ms-excel')
-    response['Content-Disposition'] = 'attachment; filename="[sample]file_upload(blacklist).csv"'
+    response['Content-Disposition'] = 'attachment; filename="[sample]file_upload(low_quality_marker).csv"'
     return response
 
 
@@ -222,7 +220,7 @@ def upload(request):
             q = Version.objects.get(version_name=version)
 
             for index, row in data.iterrows():
-                c = q.blacks_set.create(chr=row['CHR'],pos=row['POS'],rsid=row['rsID'],reason=row['Reason'],who=row['Registered by'])
+                c = q.blacks_set.create(chr=row['CHR'],pos=row['POS'],rsid=row['rsID'],reason=row['Reason'],who=row['Registered By'])
 
             messages.info(request, 'upload & save done !')
             return HttpResponseRedirect(reverse('blacklist:index'))
@@ -235,3 +233,18 @@ def upload(request):
 
 def usage(request):
     return render(request, 'blacklist/usage.html')
+
+
+def download_all(request):
+    global version, search_dic
+    if search_dic['search_keyword'] != '':
+        blk_list=search_result()
+        srh="results '" + search_dic['search_keyword'] + "' in "+ search_dic['option_name']
+
+        context = {'version': version, 'result':blk_list,'srh':srh}
+    else:
+        curr_ver = Version.objects.get(version_name=version)
+        blacks = curr_ver.blacks_set.all()
+        context = {'version': version, 'result':blacks}
+    return render(request, 'blacklist/download_all.html', context)
+

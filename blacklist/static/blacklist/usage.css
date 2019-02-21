@@ -25,11 +25,11 @@
 .search{
     background: url('gif/search.gif');
 }
-.edit1{
-    background: url('gif/edit1.gif');
+.detail1{
+    background: url('gif/detail1.gif');
 }
-.edit2{
-    background: url('gif/edit2.gif');
+.detail2{
+    background: url('gif/detail2.gif');
 }
 .delete{
     background: url('gif/delete.gif');

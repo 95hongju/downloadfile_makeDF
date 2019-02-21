@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Home</title>
+
+</head>
+
+<body>
+
+  <br><br>
+
+  <table border=0 align=center>
+
+    <tr>
+      <td colspan=3 align=center></td>
+    </tr>
+    <tr>
+      <td colspan=3>
+        <br><br><br>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <button onclick="window.location.href='#'">
+          NOT
+        </button>
+      </td>
+      <td>
+        <button onclick="window.location.href='#'">
+          YET
+        </button>
+      </td>
+      <td>
+        <button onclick="window.location.href='http://localhost:8000/search'">
+          rsID-position map
+        </button>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <button onclick="window.location.href='http://localhost:8000/infos'">
+          Sample inventory
+        </button>
+      </td>
+      <td>
+        <button onclick="window.location.href='http://localhost:8000/blacklist'">
+low quality marker
+
+        </button>
+      </td>
+      <td>
+       <button onclick="window.location.href='http://localhost:8000/snp'">
+       SNPedia
+        </button>
+      </td>
+    </tr>
+  </table>
+
+</body>
+
+</html>
+
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'infos/home.css' %}" />

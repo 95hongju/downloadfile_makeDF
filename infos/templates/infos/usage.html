@@ -1,12 +1,12 @@
 <title>
-        Home/Sample Inventory/Usage
+    Home/Sample Inventory/Usage
 </title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.95.3/js/materialize.min.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.95.3/css/materialize.min.css" rel="stylesheet" />
 <br>
 <div id='title'>
-        ☝️ Sample Inventory Usage
+    ☝️ Sample Inventory Usage
 </div>
 <div>
     <ul class="collapsible" data-collapsible="accordion">
@@ -26,22 +26,27 @@
         <li>
             <div class="collapsible-header"><i class="mdi-navigation-chevron-right"></i> Edit </div>
             <div class="collapsible-body">
-                <p>1. Click the ✏️(edit) button next to the data you want to modify. <br>
-                2. Change the data. (All data are required.) <br>
+                <p>1. Click the ✏️/❌(edit/delete) button next to the data you want to modify. <br>
+                    2. Change the data. (All data are required.) <br>
 
-             3. If you done, click ✅(edit done) button. or click the ✖️(cancel) button. <br>
-             4. Check the message at the top of the page. 
-             <p id='img' class='edit'></p>
-            </p>
+                    3. If you done, click SAVE(edit done) button. or click the BACK TO LIST️ button. <br>
+                    4. Confirm<br>
+                    5. Check the message at the top of the page.
+                    <p id='img' class='detail1'></p>
+                </p>
+                <p>All data are required. <br>
+                    If you entered blank, it won't save.
+                    <p id='img' class='detail2'></p>
+                </p>
             </div>
         </li>
         <li>
             <div class="collapsible-header"><i class="mdi-navigation-chevron-right"></i> Delete </div>
             <div class="collapsible-body">
-                    <p>1. Click the ❌(delete) button next to the data you want to delete. <br>
-                     2. Check the message at the top of the page. <br>
-                     <p id='img' class='delete'></p>
-                    </p>
+                <p>1. Click the ❌(delete) button next to the data you want to delete. <br>
+                    2. Check the message at the top of the page. <br>
+                    <p id='img' class='delete'></p>
+                </p>
 
             </div>
         </li>
@@ -49,11 +54,11 @@
             <div class="collapsible-header"><i class="mdi-navigation-chevron-right"></i> Search </div>
             <div class="collapsible-body">
                 <p>
-                        1. Select the category.<br>
-                        2. Enter the keyword to search for.<br>
-                        3. Click the 🔍(search) button.<br>
-                        4. Check the result.
-                        <p id='img' class='search'></p>
+                    1. Select the category.<br>
+                    2. Enter the keyword to search for.<br>
+                    3. Click the 🔍(search) button.<br>
+                    4. Check the result.
+                    <p id='img' class='search'></p>
                 </p>
             </div>
         </li>
@@ -61,12 +66,26 @@
             <div class="collapsible-header"><i class="mdi-navigation-chevron-right"></i> Upload file </div>
             <div class="collapsible-body">
                 <p>
-                        1. Download & open the example file. 
-                        2. Delete the test data & enter the REAL data. (DO NOT DELETE COLUMN NAMES.)
-                        3. Save the file.(delimeter is 'tab'.) 
-                        4. Choose the file and click the 'FILE UPLOAD' button.
-                        <p id='img' class='upload'></p>
+                    1. Download & open the example file. <br>
+                    2. Delete the test data & enter the REAL data. (DO NOT DELETE COLUMN NAMES.) <br>
+                    3. Save the file.(delimeter is 'tab'.)<br>
+                    4. Choose the file and click the 'FILE UPLOAD' button.
+                    <p id='img' class='upload'></p>
                 </p>
+            </div>
+        </li>
+        <li>
+            <div class="collapsible-header"><i class="mdi-navigation-chevron-right"></i> 💀💀💀 </div>
+            <div class="collapsible-body">
+                    <form method="POST" action="{% url 'infos:drop_table' %}">
+                            {% csrf_token %}
+
+                    <p>if you want to clear all data? <br>
+                        if you do this, can't undo. <br>
+                        <input type='text' name='password' placeholder="💀 ENTER CODE 💀"/></p>
+                        <input type='submit' style="width:100%; font-size:100%;" class='btn' /></a>
+                    </p>
+                </form>
             </div>
         </li>
     </ul>

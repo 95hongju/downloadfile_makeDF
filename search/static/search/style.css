@@ -30,20 +30,20 @@ body{
 
 input[type=text] {
   text-align: center;
-  border: 2px solid orange;
+  border: 2px solid indianRed;
   border-radius: 4px;
   height:30px;
 }
 
 input[type=submit] {
   background: rgb(230, 230, 230);
-  border: 2px solid orange;
+  border: 2px solid indianRed;
   height: 30px;
   border-radius: 4px;
 }
 input[type=button] {
   background: rgb(230, 230, 230);
-  border: 2px solid orange;
+  border: 2px solid indianRed;
   border-radius: 4px;
   height:30px;
 }

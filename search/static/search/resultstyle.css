@@ -7,7 +7,7 @@ table{
   padding-left: 10px;
 }
 table tr.row td{
-   border: 2px solid orange;
+   border: 2px solid indianRed;
    border-radius: 10px;
 }
 
@@ -37,8 +37,8 @@ td {
 
 input[type=button] {
   text-align: center;
-  border: 2px solid orange;
+  border: 2px solid indianRed;
   border-radius: 4px;
   height:30px;
-  
+
 }

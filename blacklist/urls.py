@@ -17,5 +17,6 @@ urlpatterns=[
     url(r'^file_download/$',views.file_download,name='file_download'),
     url(r'^upload/$',views.upload,name='upload'),
     url(r'^usage/$',views.usage,name='usage'),
+    url(r'^download_all/$',views.download_all,name='download_all'),
     url(r'^(?P<id>[0-9]+)/detail/$',views.detail,name='detail'),
 ]

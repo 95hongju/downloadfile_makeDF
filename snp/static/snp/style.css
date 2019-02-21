@@ -39,7 +39,7 @@
 input[type=submit] {
   background: rgb(230, 230, 230);
 text-align: center;
-    border: 2px solid orange;
+    border: 2px solid indianRed;
     height: 30px;
     border-radius: 4px;
 
@@ -47,7 +47,7 @@ text-align: center;
 input[type=button] {
   background: rgb(230, 230, 230);
 text-align: center;
-    border: 2px solid orange;
+    border: 2px solid indianRed;
     border-radius: 4px;
     height:30px;
 }
@@ -55,10 +55,10 @@ text-align: center;
 
 .messages{
   font-style: italic;
-  color: darkorange;
+  color: darkindianRed;
   font-size:20px;
   font-weight: bold;
- 
+
 
 }
 .messages1{

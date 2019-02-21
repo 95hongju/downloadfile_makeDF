@@ -1,0 +1,145 @@
+<style>
+  #title {
+    font-family: "Arial Black", Gadget, sans-serif;
+    font-size: 30px;
+    letter-spacing: 2px;
+    word-spacing: 2px;
+    color: #000000;
+    font-weight: 700;
+    text-decoration: none;
+    font-style: italic;
+    font-variant: normal;
+    text-transform: none;
+  }
+
+  #bd {
+    font-family: "Arial Black", Gadget, sans-serif;
+    font-size: 15 px;
+    font-weight: 700;
+  }
+</style>
+<title>
+  Home/Sample Inventory/Download Table
+</title>
+
+<br>
+<div id='title'>
+  ☝️ Sample Inventory Download Table
+  <br>
+</div>
+
+
+
+<table border=0 align=center style="font-size: 12pt;
+    border: 3px lightgray solid;
+    border-radius: 15px;
+    padding-right: 10px;
+    width:100%; height:80%;
+    padding-left: 10px;" class="fixed_header">
+
+  <thead>
+    <tr>
+      <td colspan=5>
+        <h4>
+          {% if srh %}
+          <br> VALUE : {{ srh }} <br>
+          {% endif %}
+          <br>TOTAL : {{ result|length }} <br>
+        </h4>
+
+        <input type=button onclick="exportTableToCSV('result(sample_inventory).csv')" value='CURRENT PAGE CSV DOWNLOAD'
+          style="width:30%;"></button>
+
+      </td>
+    </tr>
+    <tr align=center>
+
+      <td id ='bd'>
+        rack_num
+      </td>
+      <td id ='bd'>
+        box_num
+      </td>
+      <td id ='bd'>
+         barcode_num
+      </td>
+      <td id ='bd'>
+        well_num
+      </td>
+      <td id ='bd'>
+        freezer_num
+      </td>
+
+    </tr>
+  </thead>
+
+  <tbody>
+
+    {% if result %}
+    {% for v in result %}
+    <tr align=center>
+
+
+      <td>{{ v.rack_num }}</td>
+      <td>{{ v.box_num }}</td>
+      <td>{{ v.barcode_num }}</td>
+      <td>{{ v.well_num }}</td>
+      <td>{{ v.freezer_num }}</td>
+    </tr>
+    {% endfor %}
+
+    {% else %}
+    <tr>
+      <td colspan=5 class='messages' style="font-size:100%;"><br>N O N E D A T A
+      </td>
+    </tr>
+    {% endif %}
+  </tbody>
+</table>
+
+
+
+<script>
+  function downloadCSV(csv, filename) {
+    var csvFile;
+    var downloadLink;
+
+    // CSV file
+    csvFile = new Blob([csv], { type: "text/csv" });
+
+    // Download link
+    downloadLink = document.createElement("a");
+
+    // File name
+    downloadLink.download = filename;
+
+    // Create a link to the file
+    downloadLink.href = window.URL.createObjectURL(csvFile);
+
+    // Hide download link
+    downloadLink.style.display = "none";
+
+    // Add the link to DOM
+    document.body.appendChild(downloadLink);
+
+    // Click download link
+    downloadLink.click();
+  }
+
+  function exportTableToCSV(filename) {
+    var csv = [];
+    var rows = document.querySelectorAll("table tr");
+
+    for (var i = 0; i < rows.length; i++) {
+      var tb = rows[i].querySelectorAll("table");
+      if (tb.length !== 0) {
+        continue;
+      }
+      txt = rows[i].innerText
+      csv.push(txt);
+    }
+
+    // Download CSV file
+    downloadCSV(csv.join("\n"), filename);
+  }
+</script>
