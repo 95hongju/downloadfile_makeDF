@@ -22,7 +22,6 @@ urlpatterns=[
     url(r'^usage/$', views.usage, name='usage'),
     url(r'^download_all/$',views.download_all,name='download_all'),
 
-    url(r'^drop_table/$',views.drop_table,name='drop_table'),
     
 
 ]

@@ -34,7 +34,7 @@ def index(request):
             result = paginator.page(1)
         except EmptyPage:
             result = paginator.page(paginator.num_pages)
-                
+
         context={'tbValues_list':result}
 
     return render(request,'infos/index.html',context)
@@ -88,7 +88,7 @@ def add_new(request):
 
 
 # -----------------------------
-# search 
+# search
 # -----------------------------
 def search_btn(request):
     #this function called when user clicked search button
@@ -215,18 +215,3 @@ def download_all(request):
         context = { 'result':search_list}
 
     return render(request, 'infos/download_all.html', context)
-
-
-def drop_table(request):
-    global search_dic
-    pwd = request.POST['password']
-    if pwd == 'inspiron':
-        tbValues.objects.all().delete()
-        print('--------------------------------- clear data ---------------------------------')
-        search_dic['option_name']=''
-        search_dic['search_keyword']=''
-
-        return HttpResponseRedirect(reverse('infos:index'))
-    else:
-
-        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))

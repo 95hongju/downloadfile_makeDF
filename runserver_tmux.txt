@@ -1,10 +1,13 @@
+[how to use a virtual environment to a run the server]
+
 hongju@diagDev01:~$ source myvenv/bin/activate
 (myvenv) hongju@DiagDev01:~$ cd downloadfile_makeDF
-(myvenv) hongju@DiagDev01:~/downloadfile_makeDF$ python manage.py runserver 0.0.0.0:8080
+(myvenv) hongju@DiagDev01:~/downloadfile_makeDF$ python manage.py runserver 0.0.0.0:8001
 
 
 
-tmux -----
+
+tmux commands -----
 [new session] tmux new -s {session name}
 [session list] tmux ls
 [access session] tmux at -t {session name}

@@ -10,6 +10,9 @@ class Version(models.Model):
     def __str__(self):
         return self.version_name
 
+    class Meta:
+        verbose_name_plural = "LowQualityMarker_Versions"
+
 class Blacks(models.Model):
     ver = models.ForeignKey(Version, on_delete = models.CASCADE)
     chr = models.CharField(max_length = 20)
@@ -20,4 +23,7 @@ class Blacks(models.Model):
     date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.chr + '/' +self.pos
+        return self.chr + '/' +self.pos + '/' + self.rsid + '/' +self.reason+ '/' +self.who
+
+    class Meta:
+        verbose_name_plural = "LowQualityMarker_Markers"

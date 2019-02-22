@@ -9,3 +9,6 @@ class downloadFileList(models.Model):
 
     def __str__(self):
         return self.file_name+"------" + str(self.down_date)[:11]
+
+    class Meta:
+        verbose_name_plural = "rsIDPositionMap_databases"
